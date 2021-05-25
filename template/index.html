@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>BIOSUN Lab Protein Database</h1>
+        <p>
+            This database contains secondary structure and sequence length data for proteins.<br/>
+            The data source is marked under SIM/Uniprot, as the database contains both our simulated values and experimental values taken from Uniprot.<br/><br/><br/>
+        </p>
+        <form action = "{% url 'searchresults' %}" method = "get">
+            <input name = "q" type = "text" placeholder = "Protein Accesion Code">
+            <button type = "submit">Search</button>
+        </form>
+    </body>
+    <p>
+        <br/>Created by Lucas Wilken for BIOSUN/Biosensing Lab, organized by Dr. Dali Sun.<br/><br/>
+        This work used resources of the Center for Computationally Assisted Science and Technology (CCAST) at North Dakota State University.
+    </p>
+</html>

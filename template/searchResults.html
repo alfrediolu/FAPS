@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: left;
+    }
+</style>
+
+<h1>Protein Accession Query</h1>
+{% if object_list %}
+    <table style = "width:100%", class = "results">
+        <tr>
+            <th>Accession Code</th>
+            <th>SIM/Uniprot</th>
+            <th>a-Helix Proportion</th>
+            <th>b-Sheet Proportion</th>
+            <th>Turn Proportion</th>
+            <th>Unknown Proportion</th>
+            <th>Sequence Length</th>
+        </tr>
+        {% for protein in object_list %}
+        <tr> 
+            <td>{{ protein.accession }}</td>
+            <td>{{ protein.dataType }}</td>
+            <td>{{ protein.alpha }}</td>
+            <td>{{ protein.beta }}</td>
+            <td>{{ protein.turn }}</td>
+            <td>{{ protein.unknown }}</td>
+            <td>{{ protein.length }}</td>
+            
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <i>No results found. Please refine your search, or check that the accession code is correct.</i>
+{% endif %}    
+</html>
