@@ -20,13 +20,12 @@ class uniProtein(models.Model):
         return self.accession
 
 class simProtein(models.Model):
-    simID = IntegerField(primary_key = True)
     accession = models.CharField(max_length = 10)
-    simType = models.CharField(max_length = 3)
+    simType = models.CharField(max_length = 3, default = '')
     alpha = models.FloatField(default = 0)
     beta = models.FloatField(default = 0)
     turn = models.FloatField(default = 0)
     length = models.IntegerField()
 
     def __str__(self):
-        return self.simID
+        return self.accession
