@@ -13,7 +13,6 @@
     <table style = "width:100%", class = "results">
         <tr>
             <th>Accession Code</th>
-            <th>SIM/Uniprot</th>
             <th>a-Helix Proportion</th>
             <th>b-Sheet Proportion</th>
             <th>Turn Proportion</th>
@@ -23,7 +22,6 @@
         {% for protein in object_list %}
         <tr> 
             <td>{{ protein.accession }}</td>
-            <td>{{ protein.dataType }}</td>
             <td>{{ protein.alpha }}</td>
             <td>{{ protein.beta }}</td>
             <td>{{ protein.turn }}</td>
