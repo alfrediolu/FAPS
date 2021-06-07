@@ -10,11 +10,20 @@ class index(TemplateView):
 
 class searchResults(ListView):
     model = uniProtein
+    context_object_name = 'uniList'
+    template_name = "searchResults.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        uniList = uniProtein.objects.filter(Q(accession__icontains = query))
+        return uniList
+
+class searchResults(ListView):
+    model = simProtein
+    context_object_name = 'simList'
     template_name = "searchResults.html"
 
     def get_queryset(self):
         query = self.request.GET.get('q')
         simList = simProtein.objects.filter(Q(accession__icontains = query))
-        uniList = uniProtein.objects.filter(Q(accession__icontains = query))
-        object_list = list(chain(simList, uniList))
-        return object_list
+        return simList
