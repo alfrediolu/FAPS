@@ -7,11 +7,11 @@ class index(TemplateView):
     template_name = "index.html"
 
 class searchResults(ListView):
-    model = simProtein, uniProtein
+    model = uniProtein
     template_name = "searchResults.html"
 
     def get_queryset(self):
         query = self.request.GET.get('q')
         simList = simProtein.objects.filter(Q(accession__icontains = query))
         uniList = uniProtein.objects.filter(Q(accession__icontains = query))
-        return simList, uniList
+        return uniList
