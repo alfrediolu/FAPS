@@ -10,7 +10,8 @@
 
 <h1>Protein Accession Query</h1>
 <h3>Bioinformatics Results</h3>
-{% if uniList %}
+{% if uniList or simList %}
+    {% if uniList %}
     <table style = "width:100%", class = "uniResults">
         <tr>
             <th>Accession Code</th>
@@ -33,8 +34,9 @@
         </tr>
         {% endfor %}
     </table>
-<h3>Simulated Results</h3>
-{% if simList %}
+    {% endif %}
+    <h3>Simulated Results</h3>
+    {% if simList %}
     <table style = "width:100%", class = "simResults">
         <tr>
             <th>Accession Code</th>
@@ -55,6 +57,7 @@
         </tr>
         {% endfor %}
     </table>
+    {% endif %}
 {% else %}
     <i>No results found. Please refine your search, or check that the accession code is correct.</i>
 {% endif %}    
