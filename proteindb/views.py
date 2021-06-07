@@ -8,8 +8,14 @@ class index(TemplateView):
     template_name = "index.html"
 
 class searchResults(ListView):
-    model = uniProtein, simProtein
+    model = uniProtein
+    context_object_name = 'uniprotein_list'
     template_name = "searchResults.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(searchResults, self).get_context_data(**kwargs)
+        context['simprotein_list'] = simProtein.objects.all()
+        return context
 
     def get_queryset(self):
         query = self.request.GET.get('q')
