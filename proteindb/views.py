@@ -7,22 +7,12 @@ from django.db.models import Q
 class index(TemplateView):
     template_name = "index.html"
 
-class uniSearchResults(ListView):
-    model = uniProtein
-    context_object_name = 'uniList'
+class searchResults(ListView):
+    model = uniProtein, simProtein
     template_name = "searchResults.html"
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        uniList = uniProtein.objects.filter(Q(accession__icontains = query))
-        return uniList
-
-class simSearchResults(ListView):
-    model = simProtein
-    context_object_name = 'simList'
-    template_name = "searchResults.html"
-
-    def get_queryset(self):
-        query = self.request.GET.get('q')
-        simList = simProtein.objects.filter(Q(accession__icontains = query))
-        return simList
+        uniprotein_list = uniProtein.objects.filter(Q(accession__icontains = query))
+        simprotein_list = simProtein.objects.filter(Q(accession__icontains = query))
+        return uniprotein_list, simprotein_list
