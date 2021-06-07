@@ -3,22 +3,17 @@ from django.shortcuts import render
 from . models import uniProtein, simProtein
 from django.views.generic import TemplateView, ListView
 from django.db.models import Q
+from itertools import chain
 
 class index(TemplateView):
     template_name = "index.html"
 
 class searchResults(ListView):
-    model = uniProtein
-    context_object_name = 'uniprotein_list'
     template_name = "searchResults.html"
-
-    def get_context_data(self, **kwargs):
-        context = super(searchResults, self).get_context_data(**kwargs)
-        context['simprotein_list'] = simProtein.objects.all()
-        return context
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        uniprotein_list = uniProtein.objects.filter(Q(accession__icontains = query))
-        simprotein_list = simProtein.objects.filter(Q(accession__icontains = query))
-        return uniprotein_list, simprotein_list
+        uniList = uniProtein.objects.filter(Q(accession__icontains = query))
+        simList = simProtein.objects.filter(Q(accession__icontains = query))
+        protein_list = chain(uniList, simList)
+        return protein_list

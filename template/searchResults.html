@@ -9,9 +9,9 @@
 </style>
 
 <h1>Protein Accession Query</h1>
-{% if uniprotein_list or simprotein_list %}
+{% if protein_list %}
     <h3>Bioinformatics Results</h3>
-    <table style = "width:100%", class = "results">
+    <table style = "width:100%", class = "uniResults">
         <tr>
             <th>Accession Code</th>
             <th>a-Helix Proportion</th>
@@ -21,7 +21,7 @@
             <th>Unknown Proportion</th>
             <th>Sequence Length</th>
         </tr>
-        {% for uniProtein in uniprotein_list %}
+        {% for uniProtein in protein_list %}
         <tr> 
             <td>{{ uniProtein.accession }}</td>
             <td>{{ uniProtein.alpha }}</td>
@@ -34,7 +34,7 @@
         {% endfor %}
     </table>
     <h3>Simulation Results</h3>
-    <table style = "width:100%", class = "results">
+    <table style = "width:100%", class = "simResults">
         <tr>
             <th>Accession Code</th>
             <th>Simulation Type</th>
@@ -43,7 +43,7 @@
             <th>Turn Proportion</th>
             <th>Sequence Length</th>
         </tr>
-        {% for simProtein in simprotein_list %}
+        {% for simProtein in protein_list %}
         <tr> 
             <td>{{ simProtein.accession }}</td>
             <td>{{ simProtein.simType }}</td>
