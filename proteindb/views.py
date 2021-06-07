@@ -12,5 +12,6 @@ class searchResults(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        object_list = simProtein.objects.filter(Q(accession__icontains=query))
-        return object_list
+        simList = simProtein.objects.filter(Q(accession__icontains = query))
+        uniList = uniProtein.objects.filter(Q(accession_icontains = query))
+        return simList, uniList
