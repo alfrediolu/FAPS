@@ -9,7 +9,7 @@
 </style>
 
 <h1>Protein Accession Query</h1>
-{% if protein_list %}
+{% if object_list %}
     <h3>Bioinformatics Results</h3>
     <table style = "width:100%", class = "uniResults">
         <tr>
@@ -21,7 +21,7 @@
             <th>Unknown Proportion</th>
             <th>Sequence Length</th>
         </tr>
-        {% for uniProtein in protein_list %}
+        {% for uniProtein in object_list %}
         <tr> 
             <td>{{ uniProtein.accession }}</td>
             <td>{{ uniProtein.alpha }}</td>
@@ -43,7 +43,7 @@
             <th>Turn Proportion</th>
             <th>Sequence Length</th>
         </tr>
-        {% for simProtein in protein_list %}
+        {% for simProtein in object_list %}
         <tr> 
             <td>{{ simProtein.accession }}</td>
             <td>{{ simProtein.simType }}</td>

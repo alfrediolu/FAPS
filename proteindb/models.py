@@ -1,11 +1,23 @@
 from django.db import models
-from django.db.models.fields import IntegerField
+from django.db.models import Q
 
-class protein(models.Model):
-    accession = models.CharField(max_length = 10, primary_key = True)
+#Use model managers for queries, define search function that filters based on q input.
 
-    def __str__(self):
-        return self.accession
+class uniProteinManager(models.Manager):
+    def search(self, query):
+        qs = self.get_queryset()
+        set = Q(accession__icontains = query)
+        qs = qs.filter(set).order_by('accession').distinct()
+
+        return qs
+
+class simProteinManager(models.Manager):
+    def search(self, query):
+        qs = self.get_queryset()
+        set = Q(accession__icontains = query)
+        qs = qs.filter(set).order_by('accession').distinct()
+
+        return qs
 
 class uniProtein(models.Model):
     accession = models.CharField(max_length = 10, primary_key = True)
@@ -16,16 +28,20 @@ class uniProtein(models.Model):
     known = models.FloatField(default = 0)
     length = models.IntegerField()
 
+    objects = uniProteinManager()
+
     def __str__(self):
         return self.accession
 
 class simProtein(models.Model):
-    accession = models.CharField(max_length = 10)
-    simType = models.CharField(max_length = 3, default = '')
+    accession = models.CharField(max_length = 20)
+    simType = models.CharField(max_length = 4, default = '')
     alpha = models.FloatField(default = 0)
     beta = models.FloatField(default = 0)
     turn = models.FloatField(default = 0)
     length = models.IntegerField()
+
+    objects = simProteinManager()
 
     def __str__(self):
         return self.accession
