@@ -9,11 +9,16 @@ class index(TemplateView):
 class searchResults(ListView):
     template_name = "searchResults.html"
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['query'] = self.request.GET.get('q')
+        return context
+
     def get_queryset(self):
         query = self.request.GET.get('q')
         
-        uniResults = uniProtein.objects.search(query)
-        simResults = simProtein.objects.search(query)
+        uniResults = uniProtein.uniManage.search(query)
+        simResults = simProtein.simManage.search(query)
         qs_combined = chain(uniResults, simResults)
         qs = sorted(qs_combined)
         return qs

@@ -28,7 +28,7 @@ class uniProtein(models.Model):
     known = models.FloatField(default = 0)
     length = models.IntegerField()
 
-    objects = uniProteinManager()
+    uniManage = uniProteinManager()
 
     def __str__(self):
         return self.accession
@@ -41,7 +41,7 @@ class simProtein(models.Model):
     turn = models.FloatField(default = 0)
     length = models.IntegerField()
 
-    objects = simProteinManager()
+    simManage = simProteinManager()
 
     def __str__(self):
         return self.accession
