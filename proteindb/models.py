@@ -7,7 +7,7 @@ class uniProteinManager(models.Manager):
     def search(self, query):
         qs = self.get_queryset()
         set = Q(accession__icontains = query)
-        qs = qs.filter(set).order_by('accession').distinct()
+        qs = qs.filter(set).distinct()
 
         return qs
 
@@ -15,7 +15,7 @@ class simProteinManager(models.Manager):
     def search(self, query):
         qs = self.get_queryset()
         set = Q(accession__icontains = query)
-        qs = qs.filter(set).order_by('accession').distinct()
+        qs = qs.filter(set).distinct()
 
         return qs
 

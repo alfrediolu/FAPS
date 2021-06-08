@@ -17,7 +17,10 @@ class searchResults(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         
-        uniResults = uniProtein.uniManage.search(query)
-        simResults = simProtein.simManage.search(query)
+        uniResults = uniProtein.uniManage.search(query).order_by('accession')
+        simResults = simProtein.simManage.search(query).order_by('accession')
+        if len(simResults) == 0 and len(uniResults) == 0:
+            qs = None
+            return qs
         qs = chain(uniResults, simResults)
         return qs
