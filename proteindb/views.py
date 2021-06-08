@@ -19,6 +19,5 @@ class searchResults(ListView):
         
         uniResults = uniProtein.uniManage.search(query)
         simResults = simProtein.simManage.search(query)
-        qs_combined = chain(uniResults, simResults)
-        qs = sorted(qs_combined)
+        qs = chain(uniResults, simResults)
         return qs
