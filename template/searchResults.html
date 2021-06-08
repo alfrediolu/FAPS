@@ -33,6 +33,9 @@
         </tr>
         {% endfor %}
     </table>
+    <p>
+        <br/><br/>
+    </p>
     <h3>Simulation Results</h3>
     <table style = "width:100%", class = "simResults">
         <tr>
@@ -43,7 +46,7 @@
             <th>Turn Proportion</th>
             <th>Sequence Length</th>
         </tr>
-        {% for simProtein in object_list %}
+        {% for simProtein in sim_list %}
         <tr> 
             <td>{{ simProtein.accession }}</td>
             <td>{{ simProtein.simType }}</td>

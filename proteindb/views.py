@@ -11,7 +11,8 @@ class searchResults(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['query'] = self.request.GET.get('q')
+        context['query'], query = self.request.GET.get('q')
+        context['sim_list'] = simProtein.simManage.search(query).order_by('accession')
         return context
 
     def get_queryset(self):
@@ -22,5 +23,5 @@ class searchResults(ListView):
         if len(simResults) == 0 and len(uniResults) == 0:
             qs = None
             return qs
-        qs = chain(uniResults, simResults)
+        qs = list(chain(uniResults, simResults))
         return qs
