@@ -1,0 +1,9 @@
+{% block uploadContent %}
+    <h2>CSV Upload</h2>
+    <form method = "post" enctype = "multipart/form-data">
+        {% csrf_token %}
+        <input type = "file" name = "uploadedCSV">
+        <button type = "submit">Upload CSV</button>
+    </form>
+
+{% endblock %}

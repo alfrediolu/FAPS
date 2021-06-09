@@ -6,6 +6,7 @@
             This database contains secondary structure and sequence length data for proteins.<br/>
             The data source is marked under SIM/Uniprot, as the database contains both our simulated values and experimental values taken from Uniprot.<br/><br/><br/>
         </p>
+        <h3>Single-Protein Lookup</h3>
         <form action = "{% url 'searchresults' %}" method = "get">
             <input name = "q" type = "text" placeholder = "Protein Accesion Code">
             <button type = "submit">Search</button>

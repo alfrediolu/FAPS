@@ -1,0 +1,4 @@
+Records the necessary rollbacks for functioning major features.
+
+Build v32 - c7762fee
+    - Functioning single-protein searchup for both simulated and uniprot data, separated and sorted alphanumerically

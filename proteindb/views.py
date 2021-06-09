@@ -12,7 +12,6 @@ class searchResults(ListView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['query'] = self.request.GET.get('q')
         query = self.request.GET.get('q')
         context['sim_list'] = simProtein.simManage.search(query).order_by('accession')
         return context
@@ -21,3 +20,8 @@ class searchResults(ListView):
         query = self.request.GET.get('q')
         uniResults = uniProtein.uniManage.search(query).order_by('accession')
         return uniResults
+
+def csvUpload(request):
+    if request.method == 'POST':
+        uploadedCSV = request.FILES['uploadedCSV']
+    return render(request, 'csvSearch.html')
