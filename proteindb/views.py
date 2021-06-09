@@ -29,8 +29,11 @@ def csvUpload(request):
         accessionList = []
         if uploadedCSV.name.endswith('.csv'):
             dataSet = uploadedCSV.read().decode('UTF-8')
-            csvReader = csv.DictReader(dataSet)
-            headers = list(csvReader[0])
+            csvReader = csv.reader(dataSet, delimiter = ',')
+            headers = []
+            for row in csvReader:
+                headers.append(row)
+                break
 
             accessionCol = 0
             for colName in headers:
