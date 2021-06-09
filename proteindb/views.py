@@ -30,7 +30,7 @@ def csvUpload(request):
         if uploadedCSV.name.endswith('.csv'):
             dataSet = uploadedCSV.read().decode('UTF-8')
             csvReader = csv.DictReader(dataSet)
-            headers = dict(list(csvReader[0]))
+            headers = list(csvReader[0])
 
             accessionCol = 0
             for colName in headers:
