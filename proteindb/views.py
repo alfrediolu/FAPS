@@ -2,6 +2,8 @@ from django.shortcuts import render
 from . models import uniProtein, simProtein
 from django.views.generic import TemplateView, ListView
 from itertools import chain
+import csv, re
+from django.contrib import messages
 
 class index(TemplateView):
     template_name = "index.html"
@@ -24,4 +26,23 @@ class searchResults(ListView):
 def csvUpload(request):
     if request.method == 'POST':
         uploadedCSV = request.FILES['uploadedCSV']
+        accessionList = []
+        if uploadedCSV.name.endswith('.csv'):
+            dataSet = uploadedCSV.read().decode('UTF-8')
+            csvReader = csv.DictReader(dataSet)
+            headers = dict(list(csvReader[0]))
+
+            accessionCol = 0
+            for colName in headers:
+                if re.search('accession', colName, re.IGNORECASE):
+                    validCSV = True
+                else:
+                    accessionCol += 1
+            if not validCSV:
+                print("Invalid CSV uploaded")
+                return
+        for rows in csvReader:
+            currentAccession = csvReader[accessionCol]
+            accessionList.append(currentAccession)
+
     return render(request, 'csvSearch.html')
