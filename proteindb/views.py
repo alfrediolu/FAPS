@@ -41,7 +41,8 @@ def csvUpload(request):
                 break
 
             accessionCol = 0
-            
+            validCSV = False
+
             for colName in headers:
                 colName = str(colName)
                 if re.search('accession', colName, re.IGNORECASE):
