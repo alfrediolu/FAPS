@@ -27,9 +27,11 @@ def csvUpload(request):
     if request.method == 'POST':
         uploadedCSV = request.FILES['uploadedCSV']
         accessionList = []
+
         if not uploadedCSV.name.endswith('.csv'):
             print("Invalid file uploaded")
             return
+
         else:
             dataSet = uploadedCSV.read().decode('UTF-8')
             csvReader = csv.reader(dataSet, delimiter = ',')
@@ -37,18 +39,23 @@ def csvUpload(request):
             for row in csvReader:
                 headers.append(row)
                 break
+
             accessionCol = 0
+            
             for colName in headers:
                 colName = str(colName)
                 if re.search('accession', colName, re.IGNORECASE):
                     validCSV = True
                 else:
                     accessionCol += 1
-            if not validCSV:
-                print("Invalid CSV uploaded")
-                return
+
+        if not validCSV:
+            print("Invalid CSV uploaded")
+            return
+
         for rows in csvReader:
             currentAccession = csvReader[accessionCol]
             accessionList.append(currentAccession)
+
         print(accessionList)
     return render(request, 'csvSearch.html')
