@@ -1,6 +1,6 @@
 from . models import uniProtein, simProtein
 from django.views.generic import ListView, TemplateView
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 import pandas as pd
 from . handlers import accessionGrabber
 
@@ -33,6 +33,8 @@ class csvSearchResults(ListView):
             if uploadedCSV.name.endswith('.csv'):
                 accessionList = accessionGrabber(uploadedCSV)
                 return redirect('csvsearch/')
+            else:
+                return redirect('invalid/')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -44,3 +46,6 @@ class csvSearchResults(ListView):
         query = self.request.GET.get('q')
         uniResults = uniProtein.uniManage.search(query).order_by('accession')
         return uniResults
+
+class csvSearchInvalid(TemplateView):
+    template_name = "csvInvalid.html"

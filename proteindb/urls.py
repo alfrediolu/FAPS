@@ -1,10 +1,11 @@
 from django.urls import path
 from django.views.generic import TemplateView
 from . import views
-from . views import index, searchResults, csvSearchResults
+from . views import index, searchResults, csvSearchResults, csvSearchInvalid
 
 urlpatterns = [
     path('', index.as_view(), name = "index"),
     path('search/', searchResults.as_view(), name = "searchresults"),
-    path('csvsearch/', csvSearchResults.as_view(), name = "csvsearch")
+    path('csvsearch/', csvSearchResults.as_view(), name = "csvsearch"),
+    path('csvsearch/invalid', csvSearchInvalid.as_vieW(), name = "csvsearchinvalid"),
 ]
