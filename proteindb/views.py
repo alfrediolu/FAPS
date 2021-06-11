@@ -25,11 +25,7 @@ class searchResults(ListView):
         uniResults = uniProtein.uniManage.search(query).order_by('accession')
         return uniResults
 
-class csvReader(FormView):
-    template_name = "csvSearch.html"
-    success_url = "csvResults.html"
-    
-    def csvUpload(request):
+def csvUpload(request):
         if request.POST and request.FILES:
             uploadedCSV = request.FILES['uploadedCSV']
             readCSV = pd.read_csv(uploadedCSV, delimiter = ',')
