@@ -36,9 +36,11 @@ class csvSearchResults(ListView):
             uploadedCSV = request.FILES['uploadedCSV']
             if uploadedCSV.name.endswith('.csv'):
                 accessionList = accessionGrabber(uploadedCSV)
-                return HttpResponse("CSV uploaded, reading...")
+                return render(request, 'csvSearch.html')
             else:
                 return redirect('/csvsearch/invalid')
+        else:
+            return redirect('/csvsearch/invalid')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
