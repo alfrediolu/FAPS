@@ -28,11 +28,7 @@ class searchResults(ListView):
 class csvReader(FormView):
     template_name = "csvSearch.html"
     success_url = "csvResults.html"
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        return context
-
+    
     def csvUpload(request):
         if request.POST and request.FILES:
             uploadedCSV = request.FILES['uploadedCSV']
