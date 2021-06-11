@@ -7,11 +7,13 @@
             The data source is marked under SIM/Uniprot, as the database contains both our simulated values and experimental values taken from Uniprot.<br/><br/><br/>
         </p>
         <h3>Single-Protein Lookup</h3>
+        <p>Enter a single accession code to filter results. Leaving blank will bring up all entries in database.</p>
         <form action = "{% url 'searchresults' %}" method = "get">
             <input name = "q" type = "text" placeholder = "Protein Accesion Code">
             <button type = "submit">Search</button>
         </form>
         <h3>CSV-Based Search</h3>
+        <p>Upload a .csv file with a column name 'Accession' to use as a list to search with.</p>
         <form method = "post" enctype = "multipart/form-data" action = "{% url 'csvsearch' %}">
             {% csrf_token %}
             <input type = "file" name = "uploadedCSV">

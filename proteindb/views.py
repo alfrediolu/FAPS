@@ -1,14 +1,13 @@
 from django.shortcuts import render
 from . models import uniProtein, simProtein
-from django.views.generic import TemplateView, ListView, FormView, CreateView, View
+from django.views.generic import ListView, View
 from django.shortcuts import redirect
 import pandas as pd
 from . handlers import accessionGrabber
 
 
-class index(TemplateView):
+class index(View):
     template_name = "index.html"
-    accessionList = []
 
     def csvUpload(self, request):
         if request.POST and request.FILES:
