@@ -34,7 +34,7 @@ class csvSearchResults(ListView):
                 accessionList = accessionGrabber(uploadedCSV)
                 return redirect('csvsearch/')
             else:
-                return redirect('invalid')
+                return redirect('csvSearchInvalid')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
