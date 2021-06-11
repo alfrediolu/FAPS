@@ -1,3 +1,4 @@
+from django.http.response import HttpResponse
 from . models import uniProtein, simProtein
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import render, redirect
@@ -32,9 +33,9 @@ class csvSearchResults(ListView):
             uploadedCSV = request.FILES['uploadedCSV']
             if uploadedCSV.name.endswith('.csv'):
                 accessionList = accessionGrabber(uploadedCSV)
-                return redirect('csvsearch/')
+                return HttpResponse("CSV uploaded, reading...")
             else:
-                return redirect('csvSearchInvalid')
+                return redirect(csvSearchInvalid)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
