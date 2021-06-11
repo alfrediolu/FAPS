@@ -30,6 +30,9 @@ def csvUpload(request):
             uploadedCSV = request.FILES['uploadedCSV']
             readCSV = pd.read_csv(uploadedCSV, delimiter = ',')
             print(readCSV)
+            if 'Accession' or 'accession' in readCSV.columns:
+                accessionList = readCSV['Accession']
+                print(accessionList)
         return render(request, 'csvSearch.html')
 
 class singleUniprotUploader(CreateView):
