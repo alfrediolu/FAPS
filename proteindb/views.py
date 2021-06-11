@@ -24,6 +24,10 @@ class searchResults(ListView):
         uniResults = uniProtein.uniManage.search(query).order_by('accession')
         return uniResults
 
+class csvSearchInvalid(TemplateView):
+    template_name = "csvInvalid.html"
+redirectedCSV = csvSearchInvalid.as_view()
+
 class csvSearchResults(ListView):
     template_name = "csvSearch.html"
     context_object_name = 'uni_list'
@@ -35,7 +39,7 @@ class csvSearchResults(ListView):
                 accessionList = accessionGrabber(uploadedCSV)
                 return HttpResponse("CSV uploaded, reading...")
             else:
-                return redirect(csvSearchInvalid)
+                return redirect(redirectedCSV)
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
@@ -47,6 +51,3 @@ class csvSearchResults(ListView):
         query = self.request.GET.get('q')
         uniResults = uniProtein.uniManage.search(query).order_by('accession')
         return uniResults
-
-class csvSearchInvalid(TemplateView):
-    template_name = "csvInvalid.html"
