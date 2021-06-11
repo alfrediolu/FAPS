@@ -24,20 +24,14 @@ class searchResults(ListView):
         return uniResults
 
 class csvSearchResults(View):
-    template_name = "csvSearchResults.html"
-    context_object_name = 'uni_list'
+    template_name = "csvSearch.html"
 
-    def csvUpload(self,request):
+    def csvUpload(self, request):
         if request.POST and request.FILES:
             uploadedCSV = request.FILES['uploadedCSV']
             if uploadedCSV.is_valid():
                 accessionGrabber(uploadedCSV)
         return render(request, 'csvSearch.html')
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['sim_list']
-        return context
 
 class singleUniprotUploader(CreateView):
     template_name = "protUploader.html"
