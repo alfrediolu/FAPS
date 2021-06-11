@@ -11,6 +11,12 @@
             <input name = "q" type = "text" placeholder = "Protein Accesion Code">
             <button type = "submit">Search</button>
         </form>
+        <h3>CSV-Based Search</h3>
+        <form method = "post" enctype = "multipart/form-data" action = "{% url 'csvsearch' %}">
+            {% csrf_token %}
+            <input type = "file" name = "uploadedCSV">
+            <button type = "submit">Upload CSV</button>
+        </form>
     </body>
     <p>
         <br/>Created by Lucas Wilken for BIOSUN/Biosensing Lab, organized by Dr. Dali Sun.<br/><br/>
