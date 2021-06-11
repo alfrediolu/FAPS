@@ -26,7 +26,6 @@ class searchResults(ListView):
 
 class csvSearchInvalid(TemplateView):
     template_name = "csvInvalid.html"
-redirectedCSV = csvSearchInvalid.as_view()
 
 class csvSearchResults(ListView):
     template_name = "csvSearch.html"
@@ -39,7 +38,7 @@ class csvSearchResults(ListView):
                 accessionList = accessionGrabber(uploadedCSV)
                 return HttpResponse("CSV uploaded, reading...")
             else:
-                return redirect(redirectedCSV)
+                return redirect('/invalid')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
