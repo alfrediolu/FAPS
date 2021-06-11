@@ -30,7 +30,7 @@ class csvSearchResults(ListView):
     def post(self, request):
         if request.POST and request.FILES:
             uploadedCSV = request.FILES['uploadedCSV']
-            if uploadedCSV.is_valid() and uploadedCSV.name.endswith('.csv'):
+            if uploadedCSV.name.endswith('.csv'):
                 accessionList = accessionGrabber(uploadedCSV)
                 return redirect('csvsearch/')
 
