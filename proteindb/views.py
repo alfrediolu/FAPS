@@ -1,18 +1,17 @@
-from django.shortcuts import render
 from . models import uniProtein, simProtein
-from django.views.generic import ListView, View
+from django.views.generic import ListView, TemplateView
 from django.shortcuts import redirect
 import pandas as pd
 from . handlers import accessionGrabber
 
 
-class index(View):
+class index(TemplateView):
     template_name = "index.html"
 
-    def csvUpload(self, request):
+    def post(self, request):
         if request.POST and request.FILES:
             uploadedCSV = request.FILES['uploadedCSV']
-            if uploadedCSV.is_valid():
+            if uploadedCSV.is_valid() and uploadedCSV.name.endswith('.csv'):
                 accessionList = accessionGrabber(uploadedCSV)
         return redirect('csvsearch/')
 
