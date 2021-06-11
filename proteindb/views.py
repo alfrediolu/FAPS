@@ -1,10 +1,8 @@
 from django.shortcuts import render
 from . models import uniProtein, simProtein
-from django.views.generic import TemplateView, ListView, FormView, CreateView
-from itertools import chain
-import csv, re
+from django.views.generic import TemplateView, ListView, FormView, CreateView, View
 import pandas as pd
-from django.contrib import messages
+from . handlers import accessionGrabber
 
 
 class index(TemplateView):
@@ -25,15 +23,21 @@ class searchResults(ListView):
         uniResults = uniProtein.uniManage.search(query).order_by('accession')
         return uniResults
 
-def csvUpload(request):
+class csvSearchResults(View):
+    template_name = "csvSearchResults.html"
+    context_object_name = 'uni_list'
+
+    def csvUpload(self,request):
         if request.POST and request.FILES:
             uploadedCSV = request.FILES['uploadedCSV']
-            readCSV = pd.read_csv(uploadedCSV, delimiter = ',')
-            print(readCSV)
-            if 'Accession' or 'accession' in readCSV.columns:
-                accessionList = readCSV['Accession']
-                print(accessionList)
+            if uploadedCSV.is_valid():
+                accessionGrabber(uploadedCSV)
         return render(request, 'csvSearch.html')
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['sim_list']
+        return context
 
 class singleUniprotUploader(CreateView):
     template_name = "protUploader.html"
