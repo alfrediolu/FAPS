@@ -1,8 +1,63 @@
-{% block uploadContent %}
-    <h2>CSV Upload</h2>
-    <form method = "post" enctype = "multipart/form-data">
-        {% csrf_token %}
-        <input type = "file" name = "uploadedCSV">
-        <button type = "submit">Upload CSV</button>
-    </form>
-{% endblock %}
+<!DOCTYPE html>
+<html>
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: left;
+    }
+</style>
+
+<h1>Protein Accession Query</h1>
+{% if uni_list or sim_list %}
+    <h3>Bioinformatics Results</h3>
+    <table style = "width:100%", class = "uniResults">
+        <tr>
+            <th>Accession Code</th>
+            <th>a-Helix Proportion</th>
+            <th>b-Sheet Proportion</th>
+            <th>Turn Proportion</th>
+            <th>Known Proportion</th>
+            <th>Unknown Proportion</th>
+            <th>Sequence Length</th>
+        </tr>
+        {% for uniProtein in uni_list %}
+        <tr> 
+            <td>{{ uniProtein.accession }}</td>
+            <td>{{ uniProtein.alpha }}</td>
+            <td>{{ uniProtein.beta }}</td>
+            <td>{{ uniProtein.turn }}</td>
+            <td>{{ uniProtein.known }}</td>
+            <td>{{ uniProtein.unknown }}</td>
+            <td>{{ uniProtein.length }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <p>
+        <br/><br/>
+    </p>
+    <h3>Simulation Results</h3>
+    <table style = "width:100%", class = "simResults">
+        <tr>
+            <th>Accession Code</th>
+            <th>Simulation Type</th>
+            <th>a-Helix Proportion</th>
+            <th>b-Sheet Proportion</th>
+            <th>Turn Proportion</th>
+            <th>Sequence Length</th>
+        </tr>
+        {% for simProtein in sim_list %}
+        <tr> 
+            <td>{{ simProtein.accession }}</td>
+            <td>{{ simProtein.simType }}</td>
+            <td>{{ simProtein.alpha }}</td>
+            <td>{{ simProtein.beta }}</td>
+            <td>{{ simProtein.turn }}</td>
+            <td>{{ simProtein.length }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% else %}
+    <i>No results found. Please refine your search, or check that the accession code is correct.</i>
+{% endif %}    
+</html>

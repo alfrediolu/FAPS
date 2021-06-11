@@ -36,6 +36,7 @@ class csvSearchResults(ListView):
             uploadedCSV = request.FILES['uploadedCSV']
             if uploadedCSV.name.endswith('.csv'):
                 accessionList = accessionGrabber(uploadedCSV)
+                print(accessionList)
                 return render(request, 'csvSearch.html')
             else:
                 return redirect('/csvsearch/invalid')
