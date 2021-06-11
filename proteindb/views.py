@@ -8,13 +8,6 @@ from . handlers import accessionGrabber
 class index(TemplateView):
     template_name = "index.html"
 
-    def post(self, request):
-        if request.POST and request.FILES:
-            uploadedCSV = request.FILES['uploadedCSV']
-            if uploadedCSV.is_valid() and uploadedCSV.name.endswith('.csv'):
-                accessionList = accessionGrabber(uploadedCSV)
-        return redirect('csvsearch/')
-
 class searchResults(ListView):
     template_name = "searchResults.html"
     context_object_name = 'uni_list'
@@ -33,6 +26,13 @@ class searchResults(ListView):
 class csvSearchResults(ListView):
     template_name = "csvSearch.html"
     context_object_name = 'uni_list'
+
+    def post(self, request):
+        if request.POST and request.FILES:
+            uploadedCSV = request.FILES['uploadedCSV']
+            if uploadedCSV.is_valid() and uploadedCSV.name.endswith('.csv'):
+                accessionList = accessionGrabber(uploadedCSV)
+                return redirect('csvsearch/')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
