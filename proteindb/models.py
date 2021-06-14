@@ -3,6 +3,9 @@ from django.db.models import Q
 
 #Use model managers for queries, define search function that filters based on q input.
 
+class accessionLookup(models.Model):
+    list = models.TextField(null = True)
+
 class uniProteinManager(models.Manager):
     def search(self, query):
         qs = self.get_queryset()
