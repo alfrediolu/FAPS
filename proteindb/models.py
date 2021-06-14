@@ -3,7 +3,7 @@ from django.db.models import Q
 
 #Use model managers for queries, define search function that filters based on q input.
 
-class accessionLookup(models.Model):
+class csvAccessionList(models.Model):
     list = models.TextField(null = True)
 
 class uniProteinManager(models.Manager):
