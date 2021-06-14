@@ -27,9 +27,8 @@ class searchResults(ListView):
 class csvSearchInvalid(TemplateView):
     template_name = "csvInvalid.html"
 
-class csvSearchResults(ListView):
+class csvSearch(ListView):
     template_name = "csvSearch.html"
-    context_object_name = "csvuni_list"
 
     def post(self, request):
         if request.POST and request.FILES:
@@ -39,12 +38,17 @@ class csvSearchResults(ListView):
                 queryList = csvAccessionList()
                 queryList.list = accession
                 queryList.save()
-                return render(request, 'csvSearch.html')
+                return redirect('/csvsearch/results')
             else:
                 return redirect('/csvsearch/invalid')
         else:
             return redirect('/csvsearch/invalid')
-    
+
+
+class csvSearchResults(ListView):
+    template_name = "csvSearch.html"
+    context_object_name = "csvuni_list"
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         queryList = csvAccessionList.objects.all
