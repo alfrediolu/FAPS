@@ -1,4 +1,4 @@
-from . models import uniProtein, simProtein, csvAccessionList
+from . models import uniProtein, simProtein, csvList
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import render, redirect
 import simplejson as json
@@ -35,7 +35,7 @@ class csvSearch(ListView):
             uploadedCSV = request.FILES['uploadedCSV']
             if uploadedCSV.name.endswith('.csv'):
                 accession = accessionGrabber(uploadedCSV)
-                queryList = csvAccessionList()
+                queryList = csvList()
                 queryList.list = accession
                 queryList.save()
                 return redirect('/csvsearch/results')
@@ -44,14 +44,13 @@ class csvSearch(ListView):
         else:
             return redirect('/csvsearch/invalid')
 
-
 class csvSearchResults(ListView):
     template_name = "csvSearch.html"
     context_object_name = "csvuni_list"
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        queryList = csvAccessionList.objects.all
+        queryList = csvList.objects.all
         query = queryList[0]
         jsonDec = json.decoder.JSONDECODER()
         accession = jsonDec.decode(query.list)
@@ -62,7 +61,7 @@ class csvSearchResults(ListView):
         return context
 
     def get_queryset(self):
-        queryList = csvAccessionList.objects.all
+        queryList = csvList.objects.all
         query = queryList[0]
         jsonDec = json.decoder.JSONDECODER()
         accession = jsonDec.decode(query.list)
