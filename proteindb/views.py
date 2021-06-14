@@ -36,35 +36,35 @@ class csvSearchResults(ListView):
             uploadedCSV = request.FILES['uploadedCSV']
             if uploadedCSV.name.endswith('.csv'):
                 accession = accessionGrabber(uploadedCSV)
-                queryList = csvAccessionList()
-                queryList.list = accession
-                queryList.save()
+                # queryList = csvAccessionList()
+                # queryList.list = accession
+                # queryList.save()
                 return render(request, 'csvSearch.html')
             else:
                 return redirect('/csvsearch/invalid')
         else:
             return redirect('/csvsearch/invalid')
     
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        queryList = csvAccessionList.objects.all
-        query = queryList[0]
-        jsonDec = json.decoder.JSONDECODER()
-        accession = jsonDec.decode(query.list)
-        context['csvsim_list'] = []
-        for entry in accession:
-            results = uniProtein.uniManage.search(entry).order_by('accession')
-            context['csvsim_list'] = chain(context['csvsim_list'], results)
-        return context
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super().get_context_data(*args, **kwargs)
+    #     queryList = csvAccessionList.objects.all
+    #     query = queryList[0]
+    #     jsonDec = json.decoder.JSONDECODER()
+    #     accession = jsonDec.decode(query.list)
+    #     context['csvsim_list'] = []
+    #     for entry in accession:
+    #         results = uniProtein.uniManage.search(entry).order_by('accession')
+    #         context['csvsim_list'] = chain(context['csvsim_list'], results)
+    #     return context
 
-    def get_queryset(self):
-        queryList = csvAccessionList.objects.all
-        query = queryList[0]
-        jsonDec = json.decoder.JSONDECODER()
-        accession = jsonDec.decode(query.list)
-        uniResults = []
-        for entry in accession:
-            results = uniProtein.uniManage.search(entry).order_by('accession')
-            uniResults = chain(uniResults, results)
-        queryList.delete()
-        return uniResults
+    # def get_queryset(self):
+    #     queryList = csvAccessionList.objects.all
+    #     query = queryList[0]
+    #     jsonDec = json.decoder.JSONDECODER()
+    #     accession = jsonDec.decode(query.list)
+    #     uniResults = []
+    #     for entry in accession:
+    #         results = uniProtein.uniManage.search(entry).order_by('accession')
+    #         uniResults = chain(uniResults, results)
+    #     queryList.delete()
+    #     return uniResults
