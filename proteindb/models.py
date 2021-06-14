@@ -45,3 +45,6 @@ class simProtein(models.Model):
 
     def __str__(self):
         return self.accession
+
+class csvAccession(models.Model):
+    accession = models.CharField(max_length = 20)

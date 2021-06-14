@@ -1,4 +1,5 @@
-from . models import uniProtein, simProtein
+from django.views.generic.base import View
+from . models import uniProtein, simProtein, csvAccession
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import render, redirect
 from . handlers import accessionGrabber
@@ -29,7 +30,7 @@ class csvSearchInvalid(TemplateView):
     template_name = "csvInvalid.html"
 
 # Deals with the POST request from uploading a .csv and creates a temporary model for it to be retrieved later.
-class csvSearch(ListView):
+class csvSearch(View):
     template_name = "csvSearch.html"
 
     def post(self, request):
@@ -37,6 +38,9 @@ class csvSearch(ListView):
             uploadedCSV = request.FILES['uploadedCSV']
             if uploadedCSV.name.endswith('.csv'):
                 accessionList = accessionGrabber(uploadedCSV)
+                for entry in accessionList:
+                    lookup = csvAccession(accession = entry)
+                    lookup.save()
                 return redirect('/csvsearch/results')
             else:
                 return redirect('/csvsearch/invalid')
@@ -48,17 +52,20 @@ class csvSearchResults(ListView):
     template_name = "csvSearch.html"
     context_object_name = "csvuni_list"
 
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super().get_context_data(*args, **kwargs)
-    #     context['csvsim_list'] = []
-    #     for entry in accessionList:
-    #         results = uniProtein.uniManage.search(entry).order_by('accession')
-    #         context['csvsim_list'] = chain(context['csvsim_list'], results)
-    #     return context
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['csvsim_list'] = []
+        accessionList = list(csvAccession.objects.all)
+        for entry in accessionList:
+            results = simProtein.simManage.search(entry).order_by('accession')
+            context['csvsim_list'] = chain(context['csvsim_list'], results)
+        return context
 
-    # def get_queryset(self):
-    #     for entry in accessionList:
-    #         results = uniProtein.uniManage.search(entry).order_by('accession')
-    #         uniResults = chain(uniResults, results)
-    #     queryList.delete()
-    #     return uniResults
+    def get_queryset(self):
+        savedAccessions = csvAccession.objects.all
+        accessionList = list(savedAccessions)
+        for entry in accessionList:
+            results = uniProtein.uniManage.search(entry).order_by('accession')
+            uniResults = chain(uniResults, results)
+        savedAccessions.delete()
+        return uniResults
