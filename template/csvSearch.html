@@ -9,7 +9,7 @@
 </style>
 
 <h1>Protein Accession Query</h1>
-{% if uni_list or sim_list %}
+{% if csvuni_list or csvsim_list %}
     <h3>Bioinformatics Results</h3>
     <table style = "width:100%", class = "uniResults">
         <tr>
@@ -21,7 +21,7 @@
             <th>Unknown Proportion</th>
             <th>Sequence Length</th>
         </tr>
-        {% for uniProtein in uni_list %}
+        {% for uniProtein in csvuni_list %}
         <tr> 
             <td>{{ uniProtein.accession }}</td>
             <td>{{ uniProtein.alpha }}</td>
@@ -46,7 +46,7 @@
             <th>Turn Proportion</th>
             <th>Sequence Length</th>
         </tr>
-        {% for simProtein in sim_list %}
+        {% for simProtein in csvsim_list %}
         <tr> 
             <td>{{ simProtein.accession }}</td>
             <td>{{ simProtein.simType }}</td>
@@ -58,6 +58,6 @@
         {% endfor %}
     </table>
 {% else %}
-    <i>No results found. Please refine your search, or check that the accession code is correct.</i>
+    <i>No results found. Please refine your search, or check that the accession codes are correct. There may also not be an entry in our database for the code.</i>
 {% endif %}    
 </html>
