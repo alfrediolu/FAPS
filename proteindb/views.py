@@ -2,8 +2,9 @@ from django.views.generic.base import View
 from . models import uniProtein, simProtein, csvAccession
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import redirect
-from . handlers import accessionGrabber
+from . handlers import accessionColumnChecker, accessionGrabber
 from itertools import chain
+import pandas as pd
 
 # Functions as the index of the web app, no interaction outside of the HTML tags.
 class index(TemplateView):
@@ -37,11 +38,15 @@ class csvSearch(View):
         if request.POST and request.FILES:
             uploadedCSV = request.FILES['uploadedCSV']
             if uploadedCSV.name.endswith('.csv'):
-                accessionList = accessionGrabber(uploadedCSV)
-                for entry in accessionList:
-                    lookup = csvAccession(accession = entry)
-                    lookup.save()
-                return redirect('/csvsearch/results')
+                readCSV = pd.read_csv(uploadedCSV, delimiter = ',')
+                if accessionColumnChecker(readCSV):
+                    accessionList = accessionGrabber(readCSV)
+                    for entry in accessionList:
+                        lookup = csvAccession(accession = entry)
+                        lookup.save()
+                    return redirect('/csvsearch/results')
+                else:
+                    return redirect('/csvsearch/invalid')
             else:
                 return redirect('/csvsearch/invalid')
         else:
