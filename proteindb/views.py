@@ -64,6 +64,7 @@ class csvSearchResults(ListView):
     def get_queryset(self):
         savedAccessions = csvAccession.objects.all()
         accessionList = list(savedAccessions)
+        uniResults = []
         for entry in accessionList:
             results = uniProtein.uniManage.search(entry).order_by('accession')
             uniResults = chain(uniResults, results)
