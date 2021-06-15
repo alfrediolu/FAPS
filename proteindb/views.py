@@ -65,10 +65,10 @@ class csvSearchResults(ListView):
     def get_queryset(self):
         savedAccessions = csvAccession.objects.all()
         accessionList = list(savedAccessions)
+        print(accessionList)
         uniResults = []
         for entry in accessionList:
             results = uniProtein.uniManage.search(entry).order_by('accession')
-            print(results)
             uniResults = chain(uniResults, results)
         csvAccession.objects.all().delete()
         return uniResults
