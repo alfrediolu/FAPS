@@ -58,7 +58,7 @@ class csvSearchResults(ListView):
         savedAccessions = csvAccession.objects.all()
         accessionList = []
         for i in savedAccessions:
-            currentAccession = i.accession
+            currentAccession = csvAccession.accession
             accessionList = chain(accessionList, currentAccession)
         for entry in accessionList:
             results = simProtein.simManage.search(entry).order_by('accession')
@@ -69,9 +69,9 @@ class csvSearchResults(ListView):
         savedAccessions = csvAccession.objects.all()
         accessionList = []
         for i in savedAccessions:
-            currentAccession = i.accession
+            currentAccession = csvAccession.accession
+            print(currentAccession)
             accessionList = chain(accessionList, currentAccession)
-        print(accessionList)
         uniResults = []
         for entry in accessionList:
             results = uniProtein.uniManage.search(entry).order_by('accession')
