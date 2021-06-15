@@ -55,16 +55,22 @@ class csvSearchResults(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         context['csvsim_list'] = []
-        accessionList = list(csvAccession.objects.all())
+        savedAccessions = csvAccession.objects.all()
+        accessionList = []
+        for i in savedAccessions:
+            currentAccession = i.accession
+            accessionList = chain(accessionList, currentAccession)
         for entry in accessionList:
             results = simProtein.simManage.search(entry).order_by('accession')
-            print(results)
             context['csvsim_list'] = chain(context['csvsim_list'], results)
         return context
 
     def get_queryset(self):
         savedAccessions = csvAccession.objects.all()
-        accessionList = list(savedAccessions)
+        accessionList = []
+        for i in savedAccessions:
+            currentAccession = i.accession
+            accessionList = chain(accessionList, currentAccession)
         print(accessionList)
         uniResults = []
         for entry in accessionList:
