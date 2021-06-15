@@ -1,7 +1,7 @@
 from django.views.generic.base import View
 from . models import uniProtein, simProtein, csvAccession
 from django.views.generic import ListView, TemplateView
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from . handlers import accessionGrabber
 from itertools import chain
 
@@ -58,6 +58,7 @@ class csvSearchResults(ListView):
         accessionList = list(csvAccession.objects.all())
         for entry in accessionList:
             results = simProtein.simManage.search(entry).order_by('accession')
+            print(results)
             context['csvsim_list'] = chain(context['csvsim_list'], results)
         return context
 
@@ -67,6 +68,7 @@ class csvSearchResults(ListView):
         uniResults = []
         for entry in accessionList:
             results = uniProtein.uniManage.search(entry).order_by('accession')
+            print(results)
             uniResults = chain(uniResults, results)
-        savedAccessions.delete()
+        csvAccession.objects.all().delete()
         return uniResults
