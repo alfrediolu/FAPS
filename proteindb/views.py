@@ -63,6 +63,7 @@ class csvSearchResults(ListView):
             simResults = chain(simResults, results)
 
         context['csvsim_list'] = simResults
+        csvAccession.objects.all().delete()
         return context
 
     def get_queryset(self):
@@ -75,5 +76,4 @@ class csvSearchResults(ListView):
             results = uniProtein.uniManage.search(currentAccession).order_by('accession')
             uniResults = chain(uniResults, results)
 
-        csvAccession.objects.all().delete()
         return uniResults
