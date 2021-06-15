@@ -31,6 +31,7 @@ class csvSearchInvalid(TemplateView):
     template_name = "csvInvalid.html"
 
 # Deals with the POST request from uploading a .csv and creates a temporary model for it to be retrieved later.
+# Redirects the user to a page for an invalid lookup if the file is not a .csv, does not contain an 'Accession' column, or if no file was uploaded.
 class csvSearch(View):
     template_name = "csvSearch.html"
 
@@ -52,7 +53,7 @@ class csvSearch(View):
         else:
             return redirect('/csvsearch/invalid')
 
-# Takes the model created above and allows the HTML file to read it and format it for the tables.
+# Takes the model created above and allows the HTML file to read it and format it for the tables. Deletes it after use so it's not saved in the database.
 class csvSearchResults(ListView):
     template_name = "csvSearch.html"
     context_object_name = "csvuni_list"
@@ -60,7 +61,7 @@ class csvSearchResults(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         simResults = []
-        savedAccessions = csvAccession.objects.all()
+        savedAccessions = csvAccession.objects.all().order_by('accession')
 
         for csvEntry in savedAccessions:
             currentAccession = csvEntry.accession
@@ -72,7 +73,7 @@ class csvSearchResults(ListView):
         return context
 
     def get_queryset(self):
-        savedAccessions = csvAccession.objects.all()
+        savedAccessions = csvAccession.objects.all().order_by('accession')
         uniResults = []
 
         for csvEntry in savedAccessions:

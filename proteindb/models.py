@@ -1,8 +1,7 @@
 from django.db import models
 from django.db.models import Q
 
-#Use model managers for queries, define search function that filters based on q input.
-
+# Provides a custom lookup function for the unis.
 class uniProteinManager(models.Manager):
     def search(self, query):
         qs = self.get_queryset()
@@ -11,6 +10,7 @@ class uniProteinManager(models.Manager):
 
         return qs
 
+# Provides a custom lookup function for the sims.
 class simProteinManager(models.Manager):
     def search(self, query):
         qs = self.get_queryset()
@@ -19,6 +19,7 @@ class simProteinManager(models.Manager):
 
         return qs
 
+# Represents the bioinformatics/Uniprot proteins.
 class uniProtein(models.Model):
     accession = models.CharField(max_length = 10, primary_key = True)
     alpha = models.FloatField(default = 0)
@@ -33,6 +34,7 @@ class uniProtein(models.Model):
     def __str__(self):
         return self.accession
 
+# Represents the simulated proteins.
 class simProtein(models.Model):
     accession = models.CharField(max_length = 20)
     simType = models.CharField(max_length = 4, default = '')
@@ -46,5 +48,6 @@ class simProtein(models.Model):
     def __str__(self):
         return self.accession
 
+# Temporary storage of a list of accessions from a .csv upload. Deleted after use, so there should never be any of these actively stored in the database.
 class csvAccession(models.Model):
     accession = models.CharField(max_length = 20)
