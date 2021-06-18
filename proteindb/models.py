@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models import Q
 
-# Provides custom lookup functions for the master model.
+# Provides custom lookup function for the master model.
 class masterProteinManager(models.Manager):
     def search(self, query):
         qs = self.get_queryset()
@@ -9,25 +9,15 @@ class masterProteinManager(models.Manager):
         qs = qs.filter(set).distinct()
         return qs
 
-    def simProteinSearch(self):
-        protein = masterProtein.objects.get(self)
-        simProteinInMaster = simProtein.objects.filter(master = protein)
-        return simProteinInMaster
-
-    def uniProteinSearch(self):
-        protein = masterProtein.objects.get(self)
-        uniProteinInMaster = uniProtein.objects.filter(master = protein)
-        return uniProteinInMaster
-
 # Master protein used for querying both models at same time.
 class masterProtein(models.Model):
     accession = models.CharField(max_length = 20, primary_key = True)
     name = models.CharField(max_length = 50, default = '')
 
-    masterManage = masterProteinManager
+    masterManage = masterProteinManager()
 
     def __str__(self):
-        return self.name
+        return self.accession
 
 # Provides a custom lookup function for the unis.
 class uniProteinManager(models.Manager):
