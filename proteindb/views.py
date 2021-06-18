@@ -1,5 +1,5 @@
 from django.views.generic.base import View
-from . models import uniProtein, simProtein, csvAccession, masterProtein
+from . models import uniProtein, simProtein, csvAccession
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import redirect
 from . handlers import accessionColumnChecker, accessionGrabber
@@ -22,11 +22,8 @@ class searchResults(ListView):
         return context
 
     def get_queryset(self):
-        uniResults = []
         query = self.request.GET.get('q')
-        masterResults = masterProtein.masterManage.search(query).order_by('accession')
-        for master in masterResults:
-            uniResults = chain(uniResults, master.masterManage.uniProteinSearch)
+        uniResults = uniProtein.uniManage.search(query).order_by('accession')
         return uniResults
 
 # Functions as the redirect page if the .csv upload in invalid.
