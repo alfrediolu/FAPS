@@ -28,6 +28,7 @@ class searchResults(ListView):
         for master in masterResults:
             masterUnis = master.uni.all().order_by('accession')
             uniResults = chain(uniResults, masterUnis)
+        print(uniResults)
         return uniResults
 
 # Functions as the redirect page if the .csv upload in invalid.
