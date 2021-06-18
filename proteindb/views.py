@@ -24,13 +24,10 @@ class searchResults(ListView):
     def get_queryset(self):
         uniResults = []
         query = self.request.GET.get('q')
-        masterResults = masterProtein.masterManage.accessionSearch(query).order_by('accession')
-        if masterResults.count() != 1:
-            return uniResults
-        else:
-            for master in masterResults:
-                uniResults = master.masterManage.uniProteinSearch()
-            return uniResults
+        masterResults = masterProtein.masterManage.search(query).order_by('accession')
+        for master in masterResults:
+            uniResults = chain(uniResults, master.masterManage.uniProteinSearch)
+        return uniResults
 
 # Functions as the redirect page if the .csv upload in invalid.
 class csvSearchInvalid(TemplateView):

@@ -3,7 +3,7 @@ from django.db.models import Q
 
 # Provides custom lookup functions for the master model.
 class masterProteinManager(models.Manager):
-    def accessionSearch(self, query):
+    def search(self, query):
         qs = self.get_queryset()
         set = Q(accession__icontains = query)
         qs = qs.filter(set).distinct()
