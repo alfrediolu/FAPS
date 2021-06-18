@@ -26,7 +26,8 @@ class searchResults(ListView):
         uniResults = []
         masterResults = masterProtein.masterManage.search(query).order_by('accession')
         for master in masterResults:
-            uniResults = chain(uniResults, simProtein.objects.filter(master = master))
+            masterUnis = master.uni.all().order_by('accession')
+            uniResults = chain(uniResults, masterUnis)
         return uniResults
 
 # Functions as the redirect page if the .csv upload in invalid.

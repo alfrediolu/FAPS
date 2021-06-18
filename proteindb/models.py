@@ -44,7 +44,7 @@ class uniProtein(models.Model):
     unknown = models.FloatField(default = 1)
     known = models.FloatField(default = 0)
     length = models.IntegerField()
-    master = models.ForeignKey(to = masterProtein, default = None, on_delete = models.CASCADE, unique = True)
+    master = models.ForeignKey(to = masterProtein, default = None, on_delete = models.CASCADE, unique = True, related_name = 'uni')
 
     uniManage = uniProteinManager()
 
@@ -59,7 +59,7 @@ class simProtein(models.Model):
     beta = models.FloatField(default = 0)
     turn = models.FloatField(default = 0)
     length = models.IntegerField()
-    master = models.ForeignKey(to = masterProtein, default = None, on_delete = models.CASCADE)
+    master = models.ForeignKey(to = masterProtein, default = None, on_delete = models.CASCADE, related_name = 'sim')
 
     simManage = simProteinManager()
 
