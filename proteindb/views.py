@@ -18,7 +18,12 @@ class searchResults(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         query = self.request.GET.get('q')
-        context['sim_list'] = simProtein.simManage.search(query).order_by('accession')
+        simResults = []
+        masterResults = masterProtein.masterManage.search(query).order_by('accession')
+        for master in masterResults:
+            masterSims = master.sim.all().order_by('accession')
+            simResults = chain(simResults, masterSims)
+        context['sim_list'] = simResults
         return context
 
     def get_queryset(self):
@@ -28,7 +33,6 @@ class searchResults(ListView):
         for master in masterResults:
             masterUnis = master.uni.all().order_by('accession')
             uniResults = chain(uniResults, masterUnis)
-        print(uniResults)
         return uniResults
 
 # Functions as the redirect page if the .csv upload in invalid.
