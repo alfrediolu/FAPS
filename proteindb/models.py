@@ -1,13 +1,40 @@
 from django.db import models
 from django.db.models import Q
 
+# Provides custom lookup functions for the master model.
+class masterProteinManager(models.Manager):
+    def accessionSearch(self, query):
+        qs = self.get_queryset()
+        set = Q(accession__icontains = query)
+        qs = qs.filter(set).distinct()
+        return qs
+
+    def simProteinSearch(self):
+        protein = masterProtein.objects.get(self)
+        simProteinInMaster = simProtein.objects.filter(master = protein)
+        return simProteinInMaster
+
+    def uniProteinSearch(self):
+        protein = masterProtein.objects.get(self)
+        uniProteinInMaster = uniProtein.objects.filter(master = protein)
+        return uniProteinInMaster
+
+# Master protein used for querying both models at same time.
+class masterProtein(models.Model):
+    accession = models.CharField(max_length = 20, primary_key = True)
+    name = models.CharField(max_length = 50, default = '')
+
+    masterManage = masterProteinManager
+
+    def __str__(self):
+        return self.name
+
 # Provides a custom lookup function for the unis.
 class uniProteinManager(models.Manager):
     def search(self, query):
         qs = self.get_queryset()
         set = Q(accession__icontains = query)
         qs = qs.filter(set).distinct()
-
         return qs
 
 # Provides a custom lookup function for the sims.
@@ -16,7 +43,6 @@ class simProteinManager(models.Manager):
         qs = self.get_queryset()
         set = Q(accession__icontains = query)
         qs = qs.filter(set).distinct()
-
         return qs
 
 # Represents the bioinformatics/Uniprot proteins.
@@ -28,6 +54,7 @@ class uniProtein(models.Model):
     unknown = models.FloatField(default = 1)
     known = models.FloatField(default = 0)
     length = models.IntegerField()
+    master = models.ForeignKey(to = masterProtein, default = None, on_delete = models.CASCADE, unique = True)
 
     uniManage = uniProteinManager()
 
@@ -36,12 +63,13 @@ class uniProtein(models.Model):
 
 # Represents the simulated proteins.
 class simProtein(models.Model):
-    accession = models.CharField(max_length = 20)
+    accession = models.CharField(max_length = 20, primary_key = True)
     simType = models.CharField(max_length = 4, default = '')
     alpha = models.FloatField(default = 0)
     beta = models.FloatField(default = 0)
     turn = models.FloatField(default = 0)
     length = models.IntegerField()
+    master = models.ForeignKey(to = masterProtein, default = None, on_delete = models.CASCADE)
 
     simManage = simProteinManager()
 
