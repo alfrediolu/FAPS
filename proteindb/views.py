@@ -2,7 +2,7 @@ from django.views.generic.base import View
 from . models import uniProtein, simProtein, csvAccession, masterProtein
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import redirect
-from . handlers import accessionColumnChecker, accessionGrabber
+from . handlers import accessionGrabber
 from itertools import chain
 import pandas as pd
 
@@ -49,7 +49,7 @@ class csvSearch(View):
             uploadedCSV = request.FILES['uploadedCSV']
             if uploadedCSV.name.endswith('.csv'):
                 readCSV = pd.read_csv(uploadedCSV, delimiter = ',')
-                if accessionColumnChecker(readCSV):
+                if 'Accession' in readCSV:
                     accessionList = accessionGrabber(readCSV)
                     for entry in accessionList:
                         lookup = csvAccession(accession = entry)

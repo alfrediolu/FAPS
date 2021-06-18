@@ -5,3 +5,6 @@ Build v32 - c7762fee
 
 Build v91 - ad5f9990
     - Functioning csv-based query for both, sorted and displayed correctly.
+
+Build v103 - 05034faf
+    - Functioning single-protein search via master protein table.

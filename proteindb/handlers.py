@@ -6,10 +6,3 @@ def accessionGrabber(csv):
     if 'Accession' in csv.columns:
         accessionList = csv['Accession']
         return accessionList
-
-# Checks if the 'Accession' column exists within the .csv.
-def accessionColumnChecker(csv):
-    if 'Accession' in csv:
-        return True
-    else:
-        return False
