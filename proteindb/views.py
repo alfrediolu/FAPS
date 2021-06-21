@@ -70,11 +70,13 @@ class csvSearchResults(ListView):
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         simResults = []
+        masterResults = []
         savedAccessions = csvAccession.objects.all().order_by('accession')
 
         for csvEntry in savedAccessions:
             currentAccession = csvEntry.accession
-            masterResults = masterProtein.masterManage.search(currentAccession).order_by('accession')
+            csvResults = masterProtein.masterManage.search(currentAccession).order_by('accession')
+            masterResults = chain(masterResults, csvResults)
             for master in masterResults:
                 masterUnis = master.sim.all().order_by('accession')
                 simResults = chain(simResults, masterUnis)
@@ -86,11 +88,14 @@ class csvSearchResults(ListView):
     def get_queryset(self):
         savedAccessions = csvAccession.objects.all().order_by('accession')
         uniResults = []
+        masterResults = []
 
         for csvEntry in savedAccessions:
             currentAccession = csvEntry.accession
-            masterResults = masterProtein.masterManage.search(currentAccession).order_by('accession')
+            csvResults = masterProtein.masterManage.search(currentAccession).order_by('accession')
+            masterResults = chain(masterResults, csvResults)
             for master in masterResults:
+                print(master.accession)
                 masterUnis = master.uni.all().order_by('accession')
                 uniResults = chain(uniResults, masterUnis)
 
