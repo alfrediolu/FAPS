@@ -77,8 +77,7 @@ class csvSearchResults(ListView):
             masterResults = masterProtein.masterManage.search(currentAccession).order_by('accession')
             for master in masterResults:
                 masterUnis = master.sim.all().order_by('accession')
-                results = chain(results, masterUnis)
-            simResults = chain(simResults, results)
+                simResults = chain(simResults, masterUnis)
         context['csvsim_list'] = simResults
 
         csvAccession.objects.all().delete()
@@ -93,7 +92,6 @@ class csvSearchResults(ListView):
             masterResults = masterProtein.masterManage.search(currentAccession).order_by('accession')
             for master in masterResults:
                 masterUnis = master.uni.all().order_by('accession')
-                results = chain(results, masterUnis)
-            uniResults = chain(uniResults, results)
+                uniResults = chain(uniResults, masterUnis)
 
         return uniResults
