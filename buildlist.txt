@@ -8,3 +8,6 @@ Build v91 - ad5f9990
 
 Build v103 - 05034faf
     - Functioning single-protein search via master protein table.
+
+Build v107 - a3aee60a
+    - Functioning csv-based search via master protein table.
