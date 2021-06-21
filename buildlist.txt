@@ -11,3 +11,10 @@ Build v103 - 05034faf
 
 Build v108 - 6b483365
     - Functioning csv-based search via master protein table.
+
+
+To Do:
+- Json routing for file uploading from HPC.
+- Upload form?
+- Download results as .csv file.
+- Rework HTML.
