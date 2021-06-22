@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from . handlers import accessionGrabber
 from itertools import chain
 import pandas as pd
+from django.http import HttpResponse
 
 # Functions as the index of the web app, no interaction outside of the HTML tags.
 class index(TemplateView):
@@ -100,3 +101,11 @@ class csvSearchResults(ListView):
             uniResults = chain(uniResults, masterUnis)
 
         return uniResults
+
+def upload(request):
+    try:
+        data = pd.read_json(request.body)
+        print(data)
+    except:
+        return HttpResponse("Error")
+    return HttpResponse("JSON read successfully")
