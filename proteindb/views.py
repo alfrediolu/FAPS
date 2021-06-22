@@ -103,9 +103,11 @@ class csvSearchResults(ListView):
         return uniResults
 
 def upload(request):
-    try:
-        data = pd.read_json(request.body)
-        print(data)
-    except:
-        return HttpResponse("Error")
-    return HttpResponse("JSON read successfully")
+    if request.method == 'POST':
+        try:
+            data = pd.read_json(request.body)
+            print(data)
+        except:
+            return HttpResponse("Error")
+        return HttpResponse("JSON read successfully")
+    return HttpResponse("Error")
