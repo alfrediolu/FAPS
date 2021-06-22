@@ -1,3 +1,4 @@
+from django.views.decorators import csrf
 from django.views.generic.base import View
 from . models import uniProtein, simProtein, csvAccession, masterProtein
 from django.views.generic import ListView, TemplateView
@@ -6,6 +7,7 @@ from . handlers import accessionGrabber
 from itertools import chain
 import pandas as pd
 from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 
 # Functions as the index of the web app, no interaction outside of the HTML tags.
 class index(TemplateView):
@@ -102,6 +104,7 @@ class csvSearchResults(ListView):
 
         return uniResults
 
+@csrf_exempt
 def upload(request):
     if request.method == 'POST':
         try:
