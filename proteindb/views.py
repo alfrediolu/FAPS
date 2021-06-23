@@ -104,6 +104,7 @@ class csvSearchResults(ListView):
 
         return uniResults
 
+# Receives data from HPC in the form of a JSON file. Saves it to database.
 @csrf_exempt
 def upload(request):
     if request.method == 'POST':
@@ -112,5 +113,5 @@ def upload(request):
             print(data)
         except:
             return HttpResponse("Error")
-        return HttpResponse("JSON read successfully")
+        return HttpResponse("Data read successfully")
     return HttpResponse("Error")
