@@ -37,7 +37,7 @@ class simProteinManager(models.Manager):
 
 # Represents the bioinformatics/Uniprot proteins.
 class uniProtein(models.Model):
-    accession = models.CharField(max_length = 10, primary_key = True)
+    accession = models.CharField(max_length = 20, primary_key = True)
     alpha = models.FloatField(default = 0)
     beta = models.FloatField(default = 0)
     turn = models.FloatField(default = 0)
@@ -54,7 +54,7 @@ class uniProtein(models.Model):
 # Represents the simulated proteins.
 class simProtein(models.Model):
     accession = models.CharField(max_length = 20)
-    simType = models.CharField(max_length = 4, default = '')
+    simType = models.CharField(max_length = 20, default = '')
     alpha = models.FloatField(default = 0)
     beta = models.FloatField(default = 0)
     turn = models.FloatField(default = 0)
