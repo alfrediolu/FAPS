@@ -14,7 +14,5 @@ Build v108 - 6b483365
 
 
 To Do:
-- Json routing for file uploading from HPC.
-- Upload form?
 - Download results as .csv file.
 - Rework HTML.
