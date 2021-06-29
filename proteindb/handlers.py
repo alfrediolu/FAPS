@@ -12,7 +12,6 @@ def accessionGrabber(csv):
 # Standardizes the column names of the uploaded .csv file so they can be indexed without having to search by potential matches while adding data to the db.
 def columnRename(df):
     colNames = df.columns
-    print(colNames)
     helixMatches = ["helix", "alpha", "a-helix"]
     betaMatches = ["beta", "sheet", "b-sheet"]
     turnMatches = ["turn", "random", "coil"]
@@ -25,4 +24,5 @@ def columnRename(df):
             df = df.rename({name : 'b-Sheet'}, axis = 1, inplace = True)
         elif any(colName in nameCheck for colName in turnMatches):
             df = df.rename({name : 'Turn'}, axis = 1, inplace = True)
+    print(df)
     return df
