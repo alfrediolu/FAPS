@@ -6,3 +6,16 @@ def accessionGrabber(csv):
     if 'Accession' in csv.columns:
         accessionList = csv['Accession']
         return accessionList
+
+def columnRename(df):
+    for i, val in enumerate(df.columns.values):
+        currentHeader = val.lower()
+        if 'helix' in currentHeader or 'alpha' in currentHeader:
+            df.columns[i] = ('a-Helix')
+        if 'sheet' in currentHeader or 'beta' in currentHeader:
+            df.columns[i] = ('b-Sheet')
+        if 'turn' in currentHeader or 'coil' in currentHeader or 'random' in currentHeader:
+            df.columns[i] = ('Turn')
+        if 'length' in currentHeader:
+            df.columns[i] = ('Length')
+    return df

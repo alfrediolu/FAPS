@@ -3,7 +3,7 @@ from django.views.generic.base import View
 from . models import uniProtein, simProtein, csvAccession, masterProtein
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import redirect
-from . handlers import accessionGrabber
+from . handlers import accessionGrabber, columnRename
 from itertools import chain
 import pandas as pd
 from django.http import HttpResponse
@@ -110,7 +110,7 @@ def upload(request):
     if request.method == 'POST':
         try:
             data = pd.read_json(request.body)
-            print(data)
+            data = columnRename(data)
             if 'Data Type' in data.columns:
                 if data['Data Type'].str.contains("UNI").any():
                     print("Data is UNI.")
