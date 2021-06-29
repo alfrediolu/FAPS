@@ -15,9 +15,9 @@ def columnRename(df):
     for name in colNames:
         nameCheck = name.lower()
         if any(colName in nameCheck for colName in helixMatches):
-            df = df.rename({name : 'a-Helix'}, axis = 1)
+            df = df.rename({name : 'a-Helix'}, axis = 1, inplace = True)
         elif any(colName in nameCheck for colName in betaMatches):
-            df = df.rename({name : 'b-Sheet'}, axis = 1)
+            df = df.rename({name : 'b-Sheet'}, axis = 1, inplace = True)
         elif any(colName in nameCheck for colName in turnMatches):
-            df = df.rename({name : 'Turn'}, axis = 1)
+            df = df.rename({name : 'Turn'}, axis = 1, inplace = True)
     return df
