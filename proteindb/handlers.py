@@ -19,10 +19,10 @@ def columnRename(df):
     for name in colNames:
         nameCheck = name.lower()
         if any(colName in nameCheck for colName in helixMatches):
-            df = df.rename({name : 'a-Helix'}, axis = 1, inplace = True)
+            df = df.rename({name: 'a-Helix'}, axis = 'columns', inplace = True)
         elif any(colName in nameCheck for colName in betaMatches):
-            df = df.rename({name : 'b-Sheet'}, axis = 1, inplace = True)
+            df = df.rename({name: 'b-Sheet'}, axis = 'columns', inplace = True)
         elif any(colName in nameCheck for colName in turnMatches):
-            df = df.rename({name : 'Turn'}, axis = 1, inplace = True)
+            df = df.rename({name: 'Turn'}, axis = 'columns', inplace = True)
     print(df)
     return df
