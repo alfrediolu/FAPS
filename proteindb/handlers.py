@@ -5,18 +5,20 @@ import pandas as pd
 def accessionGrabber(csv):
     if 'Accession' in csv.columns:
         accessionList = csv['Accession']
-        return accessionList
+    return accessionList
 
 # Standardizes the column names of the uploaded .csv file so they can be indexed without having to search by potential matches while adding data to the db.
 def columnRename(df):
-    for i, val in enumerate(df.columns.values):
-        currentHeader = val.lower()
-        if 'helix' in currentHeader or 'alpha' in currentHeader:
-            df.columns[i] = ('a-Helix')
-        if 'sheet' in currentHeader or 'beta' in currentHeader:
-            df.columns[i] = ('b-Sheet')
-        if 'turn' in currentHeader or 'coil' in currentHeader or 'random' in currentHeader:
-            df.columns[i] = ('Turn')
-        if 'length' in currentHeader:
-            df.columns[i] = ('Length')
+    colNames = df.columns
+    helixMatches = ["helix", "alpha", "a-helix"]
+    betaMatches = ["beta", "sheet", "b-sheet"]
+    turnMatches = ["turn", "random", "coil"]
+    for name in colNames:
+        nameCheck = name.lower()
+        if any(colName in nameCheck for colName in helixMatches):
+            df = df.rename({name : 'a-Helix'})
+        elif any(colName in nameCheck for colName in betaMatches):
+            df = df.rename({name : 'b-Sheet'})
+        elif any(colName in nameCheck for colName in turnMatches):
+            df = df.rename({name : 'Turn'})
     return df
