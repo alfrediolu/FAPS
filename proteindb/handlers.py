@@ -7,6 +7,7 @@ def accessionGrabber(csv):
         accessionList = csv['Accession']
         return accessionList
 
+# Standardizes the column names of the uploaded .csv file so they can be indexed without having to search by potential matches while adding data to the db.
 def columnRename(df):
     for i, val in enumerate(df.columns.values):
         currentHeader = val.lower()
