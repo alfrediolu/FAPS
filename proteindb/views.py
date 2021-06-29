@@ -111,6 +111,11 @@ def upload(request):
         try:
             data = pd.read_json(request.body)
             print(data)
+            if 'Data Type' in data:
+                if data[data['Data Type'] == "UNI"]:
+                    print("Data is UNI.")
+                else:
+                    print("Data is simulated.")
         except:
             return HttpResponse("Error")
         return HttpResponse("Data read successfully")
