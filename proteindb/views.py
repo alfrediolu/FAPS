@@ -116,6 +116,8 @@ def upload(request):
                     print("Data is UNI.")
                 else:
                     print("Data is simulated.")
+            else:
+                print("Did not contain a dataType key, no data added.")
         except:
             return HttpResponse("Error")
         return HttpResponse("Data read successfully")
