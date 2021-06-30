@@ -25,10 +25,10 @@ def columnRename(df):
             df.columns = df.columns.str.replace(name, "b-Sheet")
         elif any(colName in nameCheck for colName in turnMatches):
             df.columns = df.columns.str.replace(name, "Turn")
-        elif 'known' in name and 'unknown' not in name:
+        elif "known" in nameCheck and "unknown" not in nameCheck:
             df.columns = df.columns.str.replace(name, "Known")
-        elif 'unknown' in name:
+        elif "unknown" in nameCheck:
             df.columns = df.columns.str.replace(name, "Unknown")
-        elif 'length' in name:
+        elif "length" in nameCheck:
             df.columns = df.columns.str.replace(name, "Length")
     return df
