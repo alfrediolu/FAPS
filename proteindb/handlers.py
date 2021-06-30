@@ -15,16 +15,14 @@ def columnRename(df):
     helixMatches = ["helix", "alpha", "a-helix"]
     betaMatches = ["beta", "sheet", "b-sheet"]
     turnMatches = ["turn", "random", "coil"]
-    df2 = df
 
     for name in colNames:
         nameCheck = name.lower()
         print(nameCheck)
         if any(colName in nameCheck for colName in helixMatches):
-            df2 = df.rename({name: 'a-Helix'}, axis = 'columns', inplace = True)
+            df.columns = df.columns.str.replace(name, "a-Helix")
         elif any(colName in nameCheck for colName in betaMatches):
-            df2 = df.rename({name: 'b-Sheet'}, axis = 'columns', inplace = True)
+            df.columns = df.columns.str.replace(name, "b-Sheet")
         elif any(colName in nameCheck for colName in turnMatches):
-            df2 = df.rename({name: 'Turn'}, axis = 'columns', inplace = True)
-    print(df2)
-    return df2
+            df.columns = df.columns.str.replace(name, "Turn")
+    return df
