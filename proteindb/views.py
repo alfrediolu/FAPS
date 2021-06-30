@@ -115,7 +115,7 @@ def upload(request):
             if 'Type' in data.columns:
                 if data['Type'].str.contains("UNI").any():
                     print("Data is UNI.")
-                    for row in data.iterrows():
+                    for index, row in data.iterrows():
                         currentAccession = row['Accession']
                         print(currentAccession)
                         masterList = masterProtein.objects.filter(accession__contains = currentAccession)
