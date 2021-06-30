@@ -112,8 +112,8 @@ def upload(request):
             data = pd.read_json(request.body)
             data = columnRename(data)
             print(data.to_string())
-            if 'Data Type' in data.columns:
-                if data['Data Type'].str.contains("UNI").any():
+            if 'Type' in data.columns:
+                if data['Type'].str.contains("UNI").any():
                     print("Data is UNI.")
                 else:
                     print("Data is simulated.")
