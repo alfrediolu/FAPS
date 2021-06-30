@@ -3,7 +3,7 @@ from django.views.generic.base import View
 from . models import uniProtein, simProtein, csvAccession, masterProtein
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import redirect
-from . handlers import accessionGrabber, columnRename
+from . handlers import accessionGrabber, standardizeColumns
 from itertools import chain
 import pandas as pd
 from django.http import HttpResponse
@@ -110,7 +110,7 @@ def upload(request):
     if request.method == 'POST':
         try:
             data = pd.read_json(request.body)
-            data = columnRename(data)
+            data = standardizeColumns(data)
             print(data.to_string())
 
             if 'Type' in data.columns:
@@ -120,17 +120,17 @@ def upload(request):
                     for row in data.itertuples(index = False, name = 'protein'):
                         currentAccession = row.Accession
                         print(currentAccession)
-                        # masterList = masterProtein.objects.filter(accession__contains = currentAccession)
-                        # masterCount = masterList.count()
+                        masterList = masterProtein.masterManage.search(currentAccession)
+                        masterCount = masterList.count()
 
-                        # if masterCount != 1 and masterCount != 0:
-                        #     print("Multiple master proteins found, cannot create entry.")
+                        if masterCount != 1 and masterCount != 0:
+                            print("Multiple master proteins found, cannot create entry.")
 
-                        # elif  masterCount == 0:
-                        #     print("No master protein found, creating...")
+                        elif  masterCount == 0:
+                            print("No master protein found, creating...")
 
-                        # else:
-                        #     print("Master protein found, linking entry...")
+                        else:
+                            print("Master protein found, linking entry...")
                 else:
                     print("Data is simulated.")
             else:
