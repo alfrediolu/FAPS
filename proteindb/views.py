@@ -120,17 +120,17 @@ def upload(request):
                     for row in data.itertuples(index = False, name = 'protein'):
                         currentAccession = row.Accession
                         print(currentAccession)
-                        masterList = masterProtein.objects.filter(accession__contains = currentAccession)
-                        masterCount = masterList.count()
+                        # masterList = masterProtein.objects.filter(accession__contains = currentAccession)
+                        # masterCount = masterList.count()
 
-                        if masterCount != 1 and masterCount != 0:
-                            print("Multiple master proteins found, cannot create entry.")
+                        # if masterCount != 1 and masterCount != 0:
+                        #     print("Multiple master proteins found, cannot create entry.")
 
-                        elif  masterCount == 0:
-                            print("No master protein found, creating...")
+                        # elif  masterCount == 0:
+                        #     print("No master protein found, creating...")
 
-                        else:
-                            print("Master protein found, linking entry...")
+                        # else:
+                        #     print("Master protein found, linking entry...")
                 else:
                     print("Data is simulated.")
             else:
