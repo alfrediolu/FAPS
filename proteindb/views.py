@@ -112,11 +112,13 @@ def upload(request):
             data = pd.read_json(request.body)
             data = columnRename(data)
             print(data.to_string())
+
             if 'Type' in data.columns:
                 if data['Type'].str.contains("UNI").any():
                     print("Data is UNI.")
-                    for index, row in data.iterrows():
-                        currentAccession = row['Accession']
+
+                    for row in data.itertuples(index = False, name = 'protein'):
+                        currentAccession = row.Accession
                         print(currentAccession)
                         masterList = masterProtein.objects.filter(accession__contains = currentAccession)
                         masterCount = masterList.count()
