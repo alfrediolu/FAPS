@@ -115,8 +115,23 @@ def upload(request):
             if 'Type' in data.columns:
                 if data['Type'].str.contains("UNI").any():
                     print("Data is UNI.")
+                    for index, row in data.iterrows():
+                        print(row['Accession'])
+                        print(row['a-Helix'])
+                        print(row['b-Sheet'])
+                        print(row['Turn'])
+                        print(row['Known'])
+                        print(row['Unknown'])
+                        print(row['Length'])
                 else:
                     print("Data is simulated.")
+                    for index, row in data.iterrows():
+                        print(row['Accession'])
+                        print(row['Type'])
+                        print(row['a-Helix'])
+                        print(row['b-Sheet'])
+                        print(row['Turn'])
+                        print(row['Length'])
             else:
                 print("Did not contain a dataType key, no data added.")
         except:
