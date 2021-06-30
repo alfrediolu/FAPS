@@ -12,6 +12,9 @@ Build v103 - 05034faf
 Build v108 - 6b483365
     - Functioning csv-based search via master protein table.
 
+Build v143 - 2269bca3
+    - Functioning JSON uploader that can index through the dataframe. Framework only, no database interaction.
+
 
 To Do:
 - Download results as .csv file.

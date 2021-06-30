@@ -124,7 +124,7 @@ def upload(request):
                         masterCount = masterList.count()
 
                         if masterCount != 1 and masterCount != 0:
-                            print("Multiple master proteins found, cannot create entry.")
+                            print("Multiple master proteins found, cannot create entry. Contact database administrator.")
 
                         elif  masterCount == 0:
                             print("No master protein found, creating...")
