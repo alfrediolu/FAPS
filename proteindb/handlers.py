@@ -36,7 +36,7 @@ def columnRename(df):
 
 # Acts as a 'key' for uploading data; if the IP address from the access is not in this list, it will not be considered valid and will not upload.
 def ipValidator(ip):
-    validIPList = []
+    validIPList = ['10.71.221.241']
     if ip in validIPList:
         return True
     else:
