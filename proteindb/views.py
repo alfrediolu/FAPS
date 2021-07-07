@@ -107,10 +107,11 @@ class csvSearchResults(ListView):
 # Receives data from HPC in the form of a JSON file. Saves it to database.
 @csrf_exempt
 def upload(request):
-    ip = request.META['REMOTE_ADDR']
+    # ip = request.META['REMOTE_ADDR']
+    ip = 'test'
     print(ip)
-    validCheck = ipValidator(ip)
-    if request.method == 'POST' and validCheck:
+    validConnectionCheck = ipValidator(ip)
+    if request.method == 'POST' and validConnectionCheck:
         try:
             data = pd.read_json(request.body)
             data = columnRename(data)
