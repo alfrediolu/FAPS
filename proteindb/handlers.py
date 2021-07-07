@@ -21,9 +21,9 @@ def columnRename(df):
         if "accession" in nameCheck:
             df.columns = df.columns.str.replace(name, "Accession")
         if any(colName in nameCheck for colName in helixMatches):
-            df.columns = df.columns.str.replace(name, "a-Helix")
+            df.columns = df.columns.str.replace(name, "Alpha")
         elif any(colName in nameCheck for colName in betaMatches):
-            df.columns = df.columns.str.replace(name, "b-Sheet")
+            df.columns = df.columns.str.replace(name, "Beta")
         elif any(colName in nameCheck for colName in turnMatches):
             df.columns = df.columns.str.replace(name, "Turn")
         elif "known" in nameCheck and "unknown" not in nameCheck:
