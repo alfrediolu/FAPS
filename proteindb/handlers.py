@@ -33,3 +33,11 @@ def columnRename(df):
         elif "length" in nameCheck:
             df.columns = df.columns.str.replace(name, "Length")
     return df
+
+# Acts as a 'key' for uploading data; if the IP address from the access is not in this list, it will not be considered valid and will not upload.
+def ipValidator(ip):
+    validIPList = []
+    if ip in validIPList:
+        return True
+    else:
+        return False

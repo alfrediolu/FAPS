@@ -3,7 +3,7 @@ from django.views.generic.base import View
 from . models import uniProtein, simProtein, csvAccession, masterProtein
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import redirect
-from . handlers import accessionGrabber, columnRename
+from . handlers import accessionGrabber, columnRename, ipValidator
 from itertools import chain
 import pandas as pd
 from django.http import HttpResponse
@@ -107,7 +107,9 @@ class csvSearchResults(ListView):
 # Receives data from HPC in the form of a JSON file. Saves it to database.
 @csrf_exempt
 def upload(request):
-    if request.method == 'POST':
+    ip = request.META['REMOTE_ADDR']
+    validCheck = ipValidator(ip)
+    if request.method == 'POST' and validCheck:
         try:
             data = pd.read_json(request.body)
             data = columnRename(data)

@@ -18,4 +18,6 @@ Build v143 - 2269bca3
 
 To Do:
 - Download results as .csv file.
+- Revise upload script
+- Finish upload processing view.
 - Rework HTML.
