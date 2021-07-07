@@ -108,6 +108,7 @@ class csvSearchResults(ListView):
 @csrf_exempt
 def upload(request):
     ip = request.META['REMOTE_ADDR']
+    print(ip)
     validCheck = ipValidator(ip)
     if request.method == 'POST' and validCheck:
         try:

@@ -18,7 +18,7 @@ def columnRename(df):
 
     for name in colNames:
         nameCheck = name.lower()
-        if "accession" in nameCheck or "accessions" in nameCheck:
+        if "accession" in nameCheck:
             df.columns = df.columns.str.replace(name, "Accession")
         if any(colName in nameCheck for colName in helixMatches):
             df.columns = df.columns.str.replace(name, "a-Helix")
