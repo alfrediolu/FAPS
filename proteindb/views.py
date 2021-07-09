@@ -149,7 +149,7 @@ def upload(request):
                                 uniData.save()
 
                             else:
-                                print("Multiple Uniprot entries found - this should not happen. Contact database administrator ASAP.")
+                                print("Multiple Uniprot entries found, cannot create entry. Contact database administrator ASAP.")
                 else:
                     print("Data is simulated.")
             else:
