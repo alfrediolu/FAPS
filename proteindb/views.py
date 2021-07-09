@@ -108,7 +108,6 @@ class csvSearchResults(ListView):
 @csrf_exempt
 def upload(request):
     ip = request.META['REMOTE_ADDR']
-    print(ip)
     ip = 'test' # REMOVE THIS AFTER TESTING
     if request.method == 'POST' and ipValidator(ip):
         try:
@@ -118,8 +117,6 @@ def upload(request):
 
             if 'Type' in data.columns:
                 if data['Type'].str.contains("UNI").any():
-                    print("Data is UNI.")
-
                     for row in data.itertuples(index = False, name = 'protein'):
                         currentAccession = row.Accession
                         print(currentAccession)
@@ -127,13 +124,32 @@ def upload(request):
                         masterCount = masterList.count()
 
                         if masterCount != 1 and masterCount != 0:
-                            print("Multiple master proteins found, cannot create entry. Contact database administrator.")
+                            print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")
 
                         elif  masterCount == 0:
-                            print("No master protein found, creating...")
+                            print("No master protein found, creating and linking...")
+                            masterProt = masterProtein(accession = currentAccession)
+                            masterProt.save()
+                            uniData = uniProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                            turn = row.Turn, unknown = row.Unknown, known = row.Known, length = row.Length, master = masterProt)
+                            uniData.save()
 
                         else:
-                            print("Master protein found, linking entry...")
+                            print("Master protein found, checking if Uniprot entry already exists...")
+                            masterProt = masterList.first()
+                            uniCount = masterProt.uni.all().count()
+
+                            if uniCount == 1:
+                                print("Uniprot entry already exists for this protein, contact database administrator to edit.")
+
+                            elif uniCount == 0:
+                                print("Uniprot entry not found for master, linking...")
+                                uniData = uniProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                                turn = row.Turn, unknown = row.Unknown, known = row.Known, length = row.Length, master = masterProt)
+                                uniData.save()
+
+                            else:
+                                print("Multiple Uniprot entries found - this should not happen. Contact database administrator ASAP.")
                 else:
                     print("Data is simulated.")
             else:
