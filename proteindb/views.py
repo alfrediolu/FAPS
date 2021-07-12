@@ -105,6 +105,7 @@ class csvSearchResults(ListView):
         return uniResults
 
 # Allows the upload script to authenticate a user, such that database edits are not open to anyone.
+@csrf_exempt
 def login(request):
     if request.method == 'POST':
         username = request.POST['username']
