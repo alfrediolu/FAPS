@@ -113,7 +113,7 @@ def upload(request):
         try:
             data = pd.read_json(request.body)
             data = columnRename(data)
-            print(data.to_string())
+            data = data.fillna(0)
 
             if 'Type' in data.columns:
                 if data['Type'].str.contains("UNI").any():
