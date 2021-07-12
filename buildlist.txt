@@ -15,6 +15,9 @@ Build v108 - 6b483365
 Build v143 - 2269bca3
     - Functioning JSON uploader that can index through the dataframe. Framework only, no database interaction.
 
+Build v152 - d6a8bffe
+    - Functioning JSON-to-database writer for Uniprot data only.
+
 
 To Do:
 - Download results as .csv file.
