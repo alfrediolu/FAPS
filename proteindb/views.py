@@ -116,6 +116,7 @@ def uploadLogin(request):
             print("User logged in with upload credentials.")
             return HttpResponse("Logged in successfully.")
         else:
+            print("User attempted to login to upload; invalid credentials.")
             return HttpResponse("Login failed.")
 
 # Receives data from HPC in the form of a JSON file. Saves it to database. Requires login to access for security purposes, and logs the user out after POST.
