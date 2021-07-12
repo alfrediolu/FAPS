@@ -17,7 +17,7 @@
         <form method = "post" enctype = "multipart/form-data" action = "{% url 'csvsearch' %}">
             {% csrf_token %}
             <input type = "file" name = "uploadedCSV">
-            <button type = "submit">Upload CSV</button>
+            <button type = "submit">Upload</button>
         </form>
     </body>
     <p>

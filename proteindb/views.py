@@ -1,19 +1,19 @@
-from django.views.decorators import csrf
 from django.views.generic.base import View
 from . models import uniProtein, simProtein, csvAccession, masterProtein
 from django.views.generic import ListView, TemplateView
 from django.shortcuts import redirect
-from . handlers import accessionGrabber, columnRename, ipValidator
+from . handlers import accessionGrabber, columnRename
 from itertools import chain
 import pandas as pd
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth import logout, authenticate, login
 
-# Functions as the index of the web app, no interaction outside of the HTML tags.
+# Functions as the index of the web app, housing all searches and buttons. See index.html for more detail.
 class index(TemplateView):
     template_name = "index.html"
 
-# Takes the search input from index.html and runs a query with it for one protein.
+# Takes the search input from index.html and runs a query with it for one protein. Showcases all results in table(s).
 class searchResults(ListView):
     template_name = "searchResults.html"
     context_object_name = 'uni_list'
@@ -104,12 +104,25 @@ class csvSearchResults(ListView):
 
         return uniResults
 
-# Receives data from HPC in the form of a JSON file. Saves it to database.
+# Allows the upload script to authenticate a user, such that database edits are not open to anyone.
+def login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username = username, password = password)
+        if user is not None:
+            login(request, user)
+            print("User logged in with upload credentials.")
+            return HttpResponse("Logged in successfully.")
+        else:
+            return HttpResponse("Login failed.")
+
+# Receives data from HPC in the form of a JSON file. Saves it to database. Requires login to access for security purposes, and logs the user out after POST.
 @csrf_exempt
 def upload(request):
-    ip = request.META['REMOTE_ADDR']
-    ip = 'test' # REMOVE THIS AFTER TESTING
-    if request.method == 'POST' and ipValidator(ip):
+    if not request.user.is_authenticated:
+        return HttpResponse("Unauthorized.")
+    if request.method == 'POST':
         try:
             data = pd.read_json(request.body)
             data = columnRename(data)
@@ -155,6 +168,9 @@ def upload(request):
             else:
                 print("Did not contain a dataType key, no data added.")
         except:
+            logout(request)
             return HttpResponse("Error")
+        logout(request)
         return HttpResponse("Data read successfully")
+    logout(request)
     return HttpResponse("Error")
