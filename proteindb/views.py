@@ -192,7 +192,7 @@ def upload(request):
                         else:
                             print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")
             else:
-                print("Did not contain a dataType key, no data added.")
+                print("Did not contain a Type key, no data added.")
         except:
             logout(request)
             return HttpResponse("Error during upload/file read.")
