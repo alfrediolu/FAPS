@@ -18,6 +18,9 @@ Build v143 - 2269bca3
 Build v152 - d6a8bffe
     - Functioning JSON-to-database writer for Uniprot data only.
 
+Build v156 - 3bd7f3b4
+    - Functioning login page/requiring login to upload data to database via script.
+
 
 To Do:
 - Download results as .csv file.

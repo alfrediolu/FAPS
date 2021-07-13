@@ -138,18 +138,7 @@ def upload(request):
                         masterList = masterProtein.masterManage.search(currentAccession)
                         masterCount = masterList.count()
 
-                        if masterCount != 1 and masterCount != 0:
-                            print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")
-
-                        elif  masterCount == 0:
-                            print("No master protein found, creating and linking...")
-                            masterProt = masterProtein(accession = currentAccession)
-                            masterProt.save()
-                            uniData = uniProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
-                            turn = row.Turn, unknown = row.Unknown, known = row.Known, length = row.Length, master = masterProt)
-                            uniData.save()
-
-                        else:
+                        if masterCount == 1:
                             print("Master protein found, checking if Uniprot entry already exists...")
                             masterProt = masterList.first()
                             uniCount = masterProt.uni.all().count()
@@ -165,14 +154,49 @@ def upload(request):
 
                             else:
                                 print("Multiple Uniprot entries found, cannot create entry. Contact database administrator ASAP.")
+
+                        elif  masterCount == 0:
+                            print("No master protein found, creating and linking...")
+                            masterProt = masterProtein(accession = currentAccession)
+                            masterProt.save()
+                            uniData = uniProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                            turn = row.Turn, unknown = row.Unknown, known = row.Known, length = row.Length, master = masterProt)
+                            uniData.save()
+
+                        else:
+                            print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")
+                            
                 else:
                     print("Data is simulated.")
+                    for row in data.itertuples(index = False, name = 'protein'):
+                        currentAccession = row.Accession
+                        print(currentAccession)
+                        masterList = masterProtein.masterManage.search(currentAccession)
+                        masterCount = masterList.count()
+
+                        if masterCount == 1:
+                            print("Master protein found, linking...")
+                            masterProt = masterList.first()
+                            simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                            turn = row.Turn, simType = row.Type, length = row.Length, master = masterProt)
+                            simData.save()
+
+                        elif  masterCount == 0:
+                            print("No master protein found, creating and linking...")
+                            masterProt = masterProtein(accession = currentAccession)
+                            masterProt.save()
+                            simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                            turn = row.Turn, simType = row.Type, length = row.Length, master = masterProt)
+                            simData.save()
+
+                        else:
+                            print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")
             else:
                 print("Did not contain a dataType key, no data added.")
         except:
             logout(request)
-            return HttpResponse("Error")
+            return HttpResponse("Error during upload/file read.")
         logout(request)
-        return HttpResponse("Data read successfully")
+        return HttpResponse("Data read successfully.")
     logout(request)
-    return HttpResponse("Error")
+    return HttpResponse("Error, invalid access.")
