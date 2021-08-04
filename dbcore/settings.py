@@ -5,9 +5,6 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-khxl+xh20!kf0zdls)*xf4awzczi7=o4)pxgy$4(k!8l5g%x6h'
 
@@ -17,7 +14,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com']
 SILENCED_SYSTEM_CHECKS = ['fields.W342']
 
-# Application definition
+# Application definition, make sure to include proteindb as a submodule.
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -61,8 +58,6 @@ WSGI_APPLICATION = 'dbcore.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
