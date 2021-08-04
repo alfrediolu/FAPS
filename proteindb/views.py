@@ -164,8 +164,7 @@ def upload(request):
                             uniData.save()
 
                         else:
-                            print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")
-                            
+                            print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")         
                 else:
                     print("Data is simulated.")
                     for row in data.itertuples(index = False, name = 'protein'):
