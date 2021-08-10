@@ -2,7 +2,6 @@ import pandas as pd
 
 # This file serves as handlers to simplify the code found in views. The names should tell you what each one does from views.py, but more documentation has been added here.
 
-
 # Grabs a list of accession codes from the uploaded .csv file. Pandas is required for this, because .columns is a function of a pandas dataframe.
 def accessionGrabber(csv):
     if 'Accession' in csv.columns:

@@ -11,6 +11,8 @@ SECRET_KEY = 'django-insecure-khxl+xh20!kf0zdls)*xf4awzczi7=o4)pxgy$4(k!8l5g%x6h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# 127.0.0.1 is the local host for testing - no real need to use it.
+# Any Heroku apps should allowed herokuapp.com and/or the custom domain name chosen.
 ALLOWED_HOSTS = ['127.0.0.1','.herokuapp.com']
 SILENCED_SYSTEM_CHECKS = ['fields.W342']
 
@@ -65,6 +67,7 @@ DATABASES = {
     }
 }
 
+# Resets the default database to the Heroku Postgres URL linked to the web app.
 import dj_database_url
 dbHeroku = dj_database_url.config(conn_max_age = 600)
 DATABASES['default'].update(dbHeroku)
@@ -110,7 +113,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
+# Automatically makes an ID that increments for each model unless otherwise specified in models.py
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
