@@ -73,7 +73,7 @@ class csvSearchResults(ListView):
         for master in masterResults:
             print(master.accession)
             masterUnis = master.uni.all().order_by('accession')
-            masterSims = master.sim.all().order_By('accession')
+            masterSims = master.sim.all().order_by('accession')
             totalProtResults = chain(masterUnis, masterSims)
             finalResults = chain(finalResults, totalProtResults)
 
