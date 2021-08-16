@@ -58,8 +58,8 @@ class csvSearch(View):
 
 # Takes the model created above and allows the HTML file to read it and format it for the tables. Deletes it after use so it's not saved in the database.
 class csvSearchResults(ListView):
-    template_name = "csvSearch.html"
-    context_object_name = "csv_list"
+    template_name = "searchResults.html"
+    context_object_name = "prot_list"
 
     def get_queryset(self):
         savedAccessions = csvAccession.objects.all().order_by('accession')
