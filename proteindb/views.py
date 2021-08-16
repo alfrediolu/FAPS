@@ -16,27 +16,18 @@ class index(TemplateView):
 # Takes the search input from index.html and runs a query with it for one protein. Showcases all results in table(s).
 class searchResults(ListView):
     template_name = "searchResults.html"
-    context_object_name = 'uni_list'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        query = self.request.GET.get('q')
-        simResults = []
-        masterResults = masterProtein.masterManage.search(query).order_by('accession')
-        for master in masterResults:
-            masterSims = master.sim.all().order_by('accession')
-            simResults = chain(simResults, masterSims)
-        context['sim_list'] = simResults
-        return context
+    context_object_name = 'prot_list'
 
     def get_queryset(self):
         query = self.request.GET.get('q')
-        uniResults = []
+        finalResults = []
         masterResults = masterProtein.masterManage.search(query).order_by('accession')
         for master in masterResults:
             masterUnis = master.uni.all().order_by('accession')
-            uniResults = chain(uniResults, masterUnis)
-        return uniResults
+            masterSims = master.sim.all().order_by('accession')
+            totalProtResults = chain(masterUnis, masterSims)
+            finalResults = chain(finalResults, totalProtResults)
+        return finalResults
 
 # Functions as the redirect page if the .csv upload in invalid.
 class csvSearchInvalid(TemplateView):
@@ -68,30 +59,12 @@ class csvSearch(View):
 # Takes the model created above and allows the HTML file to read it and format it for the tables. Deletes it after use so it's not saved in the database.
 class csvSearchResults(ListView):
     template_name = "csvSearch.html"
-    context_object_name = "csvuni_list"
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        simResults = []
-        masterResults = []
-        savedAccessions = csvAccession.objects.all().order_by('accession')
-
-        for csvEntry in savedAccessions:
-            currentAccession = csvEntry.accession
-            csvResults = masterProtein.masterManage.search(currentAccession).order_by('accession')
-            masterResults = chain(masterResults, csvResults)
-        for master in masterResults:
-            masterUnis = master.sim.all().order_by('accession')
-            simResults = chain(simResults, masterUnis)
-        context['csvsim_list'] = simResults
-
-        csvAccession.objects.all().delete()
-        return context
+    context_object_name = "csv_list"
 
     def get_queryset(self):
         savedAccessions = csvAccession.objects.all().order_by('accession')
-        uniResults = []
         masterResults = []
+        finalResults = []
 
         for csvEntry in savedAccessions:
             currentAccession = csvEntry.accession
@@ -100,9 +73,12 @@ class csvSearchResults(ListView):
         for master in masterResults:
             print(master.accession)
             masterUnis = master.uni.all().order_by('accession')
-            uniResults = chain(uniResults, masterUnis)
+            masterSims = master.sim.all().order_By('accession')
+            totalProtResults = chain(masterUnis, masterSims)
+            finalResults = chain(finalResults, totalProtResults)
 
-        return uniResults
+        csvAccession.objects.all().delete()
+        return finalResults
 
 # Allows the upload script to authenticate a user, such that database edits are not open to anyone.
 @csrf_exempt

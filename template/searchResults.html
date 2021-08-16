@@ -10,7 +10,7 @@
 </style>
 
 <h1>Protein Accession Query</h1>
-{% if uni_list or sim_list %}
+{% if prot_list %}
     <h3>Bioinformatics Results</h3>
     <table style = "width:100%", class = "uniResults">
         <tr>
@@ -22,39 +22,16 @@
             <th>Unknown Proportion</th>
             <th>Sequence Length</th>
         </tr>
-        {% for uniProtein in uni_list %}
+        {% for Protein in prot_list %}
         <tr> 
-            <td>{{ uniProtein.accession }}</td>
-            <td>{{ uniProtein.alpha }}</td>
-            <td>{{ uniProtein.beta }}</td>
-            <td>{{ uniProtein.turn }}</td>
-            <td>{{ uniProtein.known }}</td>
-            <td>{{ uniProtein.unknown }}</td>
-            <td>{{ uniProtein.length }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <p>
-        <br/><br/>
-    </p>
-    <h3>Simulation Results</h3>
-    <table style = "width:100%", class = "simResults">
-        <tr>
-            <th>Accession Code</th>
-            <th>Simulation Type</th>
-            <th>a-Helix Proportion</th>
-            <th>b-Sheet Proportion</th>
-            <th>Turn Proportion</th>
-            <th>Sequence Length</th>
-        </tr>
-        {% for simProtein in sim_list %}
-        <tr> 
-            <td>{{ simProtein.accession }}</td>
-            <td>{{ simProtein.simType }}</td>
-            <td>{{ simProtein.alpha }}</td>
-            <td>{{ simProtein.beta }}</td>
-            <td>{{ simProtein.turn }}</td>
-            <td>{{ simProtein.length }}</td>
+            <td>{{ Protein.accession }}</td>
+            <td>{{ Protein.simType }}</td>
+            <td>{{ Protein.alpha }}</td>
+            <td>{{ Protein.beta }}</td>
+            <td>{{ Protein.turn }}</td>
+            <td>{{ Protein.known }}</td>
+            <td>{{ Protein.unknown }}</td>
+            <td>{{ Protein.length }}</td>
         </tr>
         {% endfor %}
     </table>
