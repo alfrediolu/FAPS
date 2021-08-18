@@ -5,7 +5,7 @@ from django.shortcuts import redirect
 from . handlers import accessionGrabber, columnRename
 from itertools import chain
 import pandas as pd
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout, authenticate, login
 
@@ -96,6 +96,7 @@ def uploadLogin(request):
 # Receives data from HPC in the form of a JSON file. Saves it to database. Requires login to access for security purposes, and logs the user out after POST.
 @csrf_exempt
 def upload(request):
+    failedUploads = []
     if not request.user.is_authenticated:
         return HttpResponse("Unauthorized.")
     if request.method == 'POST':
@@ -119,6 +120,7 @@ def upload(request):
 
                             if uniCount == 1:
                                 print("Uniprot entry already exists for this protein, contact database administrator to edit.")
+                                failedUploads.append(currentAccession)
 
                             elif uniCount == 0:
                                 print("Uniprot entry not found for master, linking...")
@@ -128,6 +130,7 @@ def upload(request):
 
                             else:
                                 print("Multiple Uniprot entries found, cannot create entry. Contact database administrator ASAP.")
+                                failedUploads.append(currentAccession)
 
                         elif  masterCount == 0:
                             print("No master protein found, creating and linking...")
@@ -138,7 +141,8 @@ def upload(request):
                             uniData.save()
 
                         else:
-                            print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")         
+                            print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")
+                            failedUploads.append(currentAccession)         
                 else:
                     print("Data is simulated.")
                     for row in data.itertuples(index = False, name = 'protein'):
@@ -164,12 +168,13 @@ def upload(request):
 
                         else:
                             print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")
+                            failedUploads.append(currentAccession)
             else:
                 print("Did not contain a Type key, no data added.")
         except:
             logout(request)
             return HttpResponse("Error during upload/file read.")
         logout(request)
-        return HttpResponse("Data read successfully.")
+        return JsonResponse(failedUploads, safe = False)
     logout(request)
     return HttpResponse("Error, invalid access.")

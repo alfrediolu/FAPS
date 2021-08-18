@@ -25,9 +25,11 @@ Build v161 - 264d1aa1
     - Complete documentation pass.
     - Code in maintainable state.
 
+Build v166 - d7054575
+    - Removed csvSearch.html, now both searches use the same HTML to show the table.
+    - Combined the 2 tables into 1, where Uniprot results have no simType entry. (Searches run faster)
+
 
 To Do:
 - Download results as .csv file.
-- Revise upload script
-- Finish upload processing view.
 - Rework HTML.
