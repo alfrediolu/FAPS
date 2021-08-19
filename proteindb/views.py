@@ -152,11 +152,20 @@ def upload(request):
                         masterCount = masterList.count()
 
                         if masterCount == 1:
-                            print("Master protein found, linking...")
+                            print("Master protein found, checking if simType exists...")
                             masterProt = masterList.first()
-                            simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
-                            turn = row.Turn, simType = row.Type, length = row.Length, master = masterProt)
-                            simData.save()
+                            existingSims = masterProt.sim.all()
+                            simTypeMatch = False
+                            for sim in existingSims:
+                                if sim.simType == row.Type:
+                                    print("dataType match, cannot create entry.")
+                                    simTypeMatch = True
+                                    failedUploads.append(currentAccession)
+                            if not simTypeMatch:
+                                print("Master has no sim with matching dataType, adding...")
+                                simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                                turn = row.Turn, simType = row.Type, length = row.Length, master = masterProt)
+                                simData.save()
 
                         elif  masterCount == 0:
                             print("No master protein found, creating and linking...")
