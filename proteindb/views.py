@@ -119,7 +119,7 @@ def upload(request):
                             uniCount = masterProt.uni.all().count()
 
                             if uniCount == 1:
-                                print("Uniprot entry already exists for this protein, contact database administrator to edit.")
+                                print("Uniprot entry already exists for this protein, skipped.")
                                 failedUploads.append(currentAccession)
 
                             elif uniCount == 0:
@@ -152,13 +152,13 @@ def upload(request):
                         masterCount = masterList.count()
 
                         if masterCount == 1:
-                            print("Master protein found, checking if simType exists...")
+                            print("Master protein found, checking if simProtein of same simType exists...")
                             masterProt = masterList.first()
                             existingSims = masterProt.sim.all()
                             simTypeMatch = False
                             for sim in existingSims:
                                 if sim.simType == row.Type:
-                                    print("dataType match, cannot create entry.")
+                                    print("dataType match, cannot create entry; skipped.")
                                     simTypeMatch = True
                                     failedUploads.append(currentAccession)
                             if not simTypeMatch:
