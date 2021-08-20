@@ -26,7 +26,7 @@ class searchResults(ListView):
         for master in masterResults:
             masterUnis = master.uni.all().order_by('accession')
             if masterUnis.count() == 0:
-                uniData = [0,0,0,0,0,0]
+                uniData = [0,0,0,0,1,0]
             else:
                 masterUni = masterUnis.first()
                 uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
@@ -35,7 +35,10 @@ class searchResults(ListView):
             for sim in masterSims:
                 simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
                 dataList = list(chain(simData, uniData))
-                overallProp = [(simData[2]*uniData[4] + uniData[0]*uniData[3]), (simData[3]*uniData[4] + uniData[1]*uniData[3]), (simData[4]*uniData[4] + uniData[2]*uniData[3])]
+                overallAlpha = (simData[2]*uniData[4] + uniData[0]*uniData[3])
+                overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])
+                overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])
+                overallProp = [overallAlpha, overallBeta, overallTurn]
                 dataList.append(overallProp)
                 finalResults.append(dataList)
         return finalResults
@@ -93,7 +96,10 @@ class csvSearchResults(ListView):
                 for sim in masterSims:
                     simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
                     dataList = list(chain(simData, uniData))
-                    overallProp = [(simData[2]*uniData[4] + uniData[0]*uniData[3]), (simData[3]*uniData[4] + uniData[1]*uniData[3]), (simData[4]*uniData[4] + uniData[2]*uniData[3])]
+                    overallAlpha = (simData[2]*uniData[4] + uniData[0]*uniData[3])
+                    overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])
+                    overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])
+                    overallProp = [overallAlpha, overallBeta, overallTurn]
                     dataList.append(overallProp)
                     finalResults.append(dataList)
         csvAccession.objects.all().delete()
