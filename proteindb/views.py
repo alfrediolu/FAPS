@@ -24,14 +24,14 @@ class searchResults(ListView):
         masterResults = masterProtein.masterManage.search(query).order_by('accession')
 
         for master in masterResults:
-            masterUnis = master.uni.all().order_by('accession')
+            masterUni = master.uni.all().order_by('accession').first()
+            uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
             masterSims = master.sim.all().order_by('simType')
 
             for sim in masterSims:
-                simList = [sim]
-                totalProtResults = chain(simList, masterUnis)
-
-            finalResults = chain(finalResults, totalProtResults)
+                simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
+                dataList = chain(simData, uniData)
+                finalResults = finalResults.append(dataList)
         return finalResults
 
 # Functions as the redirect page if the .csv upload in invalid.

@@ -29,21 +29,18 @@
         </tr>
         {% for Protein in prot_list %}
         <tr>
-            {% if Protein.getObjectType == 'simProtein' %} 
-                <td>{{ Protein.accession }}</td>
-                <td>{{ Protein.simType }}</td>
-                <td>{{ Protein.alpha }}</td>
-                <td>{{ Protein.beta }}</td>
-                <td>{{ Protein.turn }}</td>
-                <td>{{ Protein.length }}</td>
-            {% elif Protein.getObjectType == 'uniProtein' %}
-                <td>{{ Protein.alpha }}</td>
-                <td>{{ Protein.beta }}</td>
-                <td>{{ Protein.turn }}</td>
-                <td>{{ Protein.length }}</td>
-                <td>{{ Protein.known }}</td>
-                <td>{{ Protein.unknown }}</td>
-            {% endif %}
+                <td>{{ Protein.0 }}</td>
+                <td>{{ Protein.1 }}</td>
+                <td>{{ Protein.2 }}</td>
+                <td>{{ Protein.3 }}</td>
+                <td>{{ Protein.4 }}</td>
+                <td>{{ Protein.5 }}</td>
+                <td>{{ Protein.6 }}</td>
+                <td>{{ Protein.7 }}</td>
+                <td>{{ Protein.8 }}</td>
+                <td>{{ Protein.9 }}</td>
+                <td>{{ Protein.10 }}</td>
+                <td>{{ Protein.11 }}</td>
         </tr>
         {% endfor %}
     </table>
