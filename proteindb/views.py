@@ -35,6 +35,8 @@ class searchResults(ListView):
             for sim in masterSims:
                 simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
                 dataList = list(chain(simData, uniData))
+                overallProp = [(simData[2]*uniData[4] + uniData[0]*uniData[3]), (simData[3]*uniData[4] + uniData[1]*uniData[3]), (simData[4]*uniData[4] + uniData[2]*uniData[3])]
+                dataList.append(overallProp)
                 finalResults.append(dataList)
         return finalResults
 
@@ -82,7 +84,7 @@ class csvSearchResults(ListView):
                 print(master.accession)
                 masterUnis = master.uni.all().order_by('accession')
                 if masterUnis.count() == 0:
-                    uniData = [0,0,0,0,0,0]
+                    uniData = [0,0,0,0,1,0]
                 else:
                     masterUni = masterUnis.first()
                     uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
@@ -91,6 +93,8 @@ class csvSearchResults(ListView):
                 for sim in masterSims:
                     simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
                     dataList = list(chain(simData, uniData))
+                    overallProp = [(simData[2]*uniData[4] + uniData[0]*uniData[3]), (simData[3]*uniData[4] + uniData[1]*uniData[3]), (simData[4]*uniData[4] + uniData[2]*uniData[3])]
+                    dataList.append(overallProp)
                     finalResults.append(dataList)
         csvAccession.objects.all().delete()
         return finalResults
