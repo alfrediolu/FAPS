@@ -26,14 +26,13 @@ class searchResults(ListView):
         for master in masterResults:
             masterUni = master.uni.all().order_by('accession').first()
             uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
-            print(uniData)
             masterSims = master.sim.all().order_by('simType')
 
             for sim in masterSims:
                 simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
-                print(simData)
                 dataList = chain(simData, uniData)
                 finalResults = finalResults.append(dataList)
+        print(finalResults)
         return finalResults
 
 # Functions as the redirect page if the .csv upload in invalid.
