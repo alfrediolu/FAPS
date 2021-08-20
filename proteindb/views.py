@@ -76,7 +76,7 @@ class csvSearchResults(ListView):
 
             for master in masterResults:
                 print(master.accession)
-                masterUni = master.uni.all().order_by('accession')
+                masterUni = master.uni.all().order_by('accession').first()
                 masterSims = master.sim.all().order_by('simType')
                 uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
                 masterSims = master.sim.all().order_by('simType')
