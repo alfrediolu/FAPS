@@ -39,8 +39,8 @@ class searchResults(ListView):
                 overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])
                 overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])
                 overallProp = [overallAlpha, overallBeta, overallTurn]
-                dataList.append(overallProp)
                 finalResults.append(dataList)
+                finalResults.append(overallProp)
         return finalResults
 
 # Functions as the redirect page if the .csv upload in invalid.
@@ -100,8 +100,8 @@ class csvSearchResults(ListView):
                     overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])
                     overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])
                     overallProp = [overallAlpha, overallBeta, overallTurn]
-                    dataList.append(overallProp)
                     finalResults.append(dataList)
+                    finalResults.append(overallProp)
         csvAccession.objects.all().delete()
         return finalResults
 
