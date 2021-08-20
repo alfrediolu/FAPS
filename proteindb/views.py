@@ -39,7 +39,9 @@ class searchResults(ListView):
                 overallAlpha = (simData[2]*uniData[4] + uniData[0]*uniData[3])
                 overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])
                 overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])
-                dataList.append(overallAlpha, overallBeta, overallTurn)
+                dataList.append(overallAlpha)
+                dataList.append(overallBeta)
+                dataList.append(overallTurn)
                 finalResults.append(dataList)
         return finalResults
 
@@ -99,7 +101,9 @@ class csvSearchResults(ListView):
                     overallAlpha = (simData[2]*uniData[4] + uniData[0]*uniData[3])
                     overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])
                     overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])
-                    dataList.append(overallAlpha, overallBeta, overallTurn)
+                    dataList.append(overallAlpha)
+                    dataList.append(overallBeta)
+                    dataList.append(overallTurn)
                     finalResults.append(dataList)
         csvAccession.objects.all().delete()
         return finalResults
