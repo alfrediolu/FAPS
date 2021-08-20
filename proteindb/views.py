@@ -31,7 +31,7 @@ class searchResults(ListView):
             for sim in masterSims:
                 simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
                 dataList = list(chain(simData, uniData))
-                finalResults = finalResults.append(dataList)
+                finalResults.append(dataList)
         print(finalResults)
         return finalResults
 
