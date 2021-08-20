@@ -14,7 +14,9 @@ from django.contrib.auth import logout, authenticate, login
 class index(TemplateView):
     template_name = "index.html"
 
-# Takes the search input from index.html and runs a query with it for one protein. Showcases all results in table(s).
+# Takes the search input from index.html and runs a query with it for one protein (or any matches to the entry).
+# Search results are reorganized into a list to display in the way Dr. Sun wanted. Also calculates overall percents.
+# If no sim entry exists, it won't show up in the search - if no Uniprot entry exists, it defaults to a 0 vector with 100% unknown.
 class searchResults(ListView):
     template_name = "searchResults.html"
     context_object_name = 'prot_list'
@@ -72,7 +74,7 @@ class csvSearch(View):
         else:
             return redirect('/csvsearch/invalid')
 
-# Takes the model created above and allows the HTML file to read it and format it for the tables. Deletes it after use so it's not saved in the database.
+# Takes the model created above and allows the HTML file to read it and format it for the table. Deletes it after use so it's not saved in the database.
 class csvSearchResults(ListView):
     template_name = "searchResults.html"
     context_object_name = "prot_list"
