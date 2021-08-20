@@ -25,7 +25,8 @@ class searchResults(ListView):
         for master in masterResults:
             masterUnis = master.uni.all().order_by('accession')
             masterSims = master.sim.all().order_by('simType')
-            totalProtResults = chain(masterUnis, masterSims)
+            for sim in masterSims:
+                totalProtResults = chain(sim, masterUnis)
             finalResults = chain(finalResults, totalProtResults)
         return finalResults
 
@@ -73,8 +74,6 @@ class csvSearchResults(ListView):
                 print(master.accession)
                 masterUnis = master.uni.all().order_by('accession')
                 masterSims = master.sim.all().order_by('simType')
-                testPrint = masterUnis.first()
-                print(testPrint.getObjectType())
                 totalProtResults = chain(masterUnis, masterSims)
                 finalResults = chain(finalResults, totalProtResults)
 

@@ -16,23 +16,33 @@
         <tr>
             <th>Accession Code</th>
             <th>Simulation Type</th>
-            <th>a-Helix Proportion</th>
-            <th>b-Sheet Proportion</th>
-            <th>Turn Proportion</th>
+            <th>Sim Alpha</th>
+            <th>Sim Beta</th>
+            <th>Sim Turn</th>
+            <th>Sim Length</th>
+            <th>Uniprot Alpha</th>
+            <th>Uniprot Beta</th>
+            <th>Uniprot Turn</th>
             <th>Known Proportion</th>
             <th>Unknown Proportion</th>
             <th>Sequence Length</th>
         </tr>
         {% for Protein in prot_list %}
-        <tr> 
+        <tr>
+            {% if Protein.getObjectType == 'simProtein' %} 
             <td>{{ Protein.accession }}</td>
             <td>{{ Protein.simType }}</td>
             <td>{{ Protein.alpha }}</td>
             <td>{{ Protein.beta }}</td>
             <td>{{ Protein.turn }}</td>
+            <td>{{ Protein.length }}</td>
+            {% elif Protein.getObjectType == 'uniProtein' %}
+            <td>{{ Protein.alpha }}</td>
+            <td>{{ Protein.beta }}</td>
+            <td>{{ Protein.turn }}</td>
+            <td>{{ Protein.length }}</td>
             <td>{{ Protein.known }}</td>
             <td>{{ Protein.unknown }}</td>
-            <td>{{ Protein.length }}</td>
         </tr>
         {% endfor %}
     </table>
