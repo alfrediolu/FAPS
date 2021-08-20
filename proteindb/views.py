@@ -22,11 +22,14 @@ class searchResults(ListView):
         query = self.request.GET.get('q')
         finalResults = []
         masterResults = masterProtein.masterManage.search(query).order_by('accession')
+
         for master in masterResults:
             masterUnis = master.uni.all().order_by('accession')
             masterSims = master.sim.all().order_by('simType')
+
             for sim in masterSims:
                 totalProtResults = chain(sim, masterUnis)
+
             finalResults = chain(finalResults, totalProtResults)
         return finalResults
 
@@ -74,9 +77,11 @@ class csvSearchResults(ListView):
                 print(master.accession)
                 masterUnis = master.uni.all().order_by('accession')
                 masterSims = master.sim.all().order_by('simType')
-                totalProtResults = chain(masterUnis, masterSims)
-                finalResults = chain(finalResults, totalProtResults)
 
+                for sim in masterSims:
+                    totalProtResults = chain(sim, masterUnis)
+
+                finalResults = chain(finalResults, totalProtResults)
         csvAccession.objects.all().delete()
         return finalResults
 
