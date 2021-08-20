@@ -50,6 +50,9 @@ class uniProtein(models.Model):
 
     def __str__(self):
         return self.accession
+    
+    def getObjectType(self):
+        return "uniProtein"
 
 # Represents the simulated proteins.
 class simProtein(models.Model):
@@ -65,6 +68,9 @@ class simProtein(models.Model):
 
     def __str__(self):
         return self.accession
+
+    def getObjectType(self):
+        return "simProtein"
 
 # Temporary storage of a list of accessions from a .csv upload. Deleted after use, so there should never be any of these actively stored in the database.
 class csvAccession(models.Model):
