@@ -28,7 +28,8 @@ class searchResults(ListView):
             masterSims = master.sim.all().order_by('simType')
 
             for sim in masterSims:
-                totalProtResults = chain(sim, masterUnis)
+                simList = [sim]
+                totalProtResults = chain(simList, masterUnis)
 
             finalResults = chain(finalResults, totalProtResults)
         return finalResults
@@ -79,7 +80,8 @@ class csvSearchResults(ListView):
                 masterSims = master.sim.all().order_by('simType')
 
                 for sim in masterSims:
-                    totalProtResults = chain(sim, masterUnis)
+                    simList = [sim]
+                    totalProtResults = chain(simList, masterUnis)
 
                 finalResults = chain(finalResults, totalProtResults)
         csvAccession.objects.all().delete()
