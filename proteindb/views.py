@@ -1,3 +1,4 @@
+from typing import final
 from django.views.generic.base import View
 from . models import uniProtein, simProtein, csvAccession, masterProtein
 from django.views.generic import ListView, TemplateView
@@ -41,6 +42,7 @@ class searchResults(ListView):
                 overallProp = [overallAlpha, overallBeta, overallTurn]
                 finalResults.append(dataList)
                 finalResults.append(overallProp)
+                print(finalResults)
         return finalResults
 
 # Functions as the redirect page if the .csv upload in invalid.
