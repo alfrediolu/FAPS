@@ -24,8 +24,12 @@ class searchResults(ListView):
         masterResults = masterProtein.masterManage.search(query).order_by('accession')
 
         for master in masterResults:
-            masterUni = master.uni.all().order_by('accession').first()
-            uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
+            masterUnis = master.uni.all().order_by('accession')
+            if masterUnis.count() == 0:
+                uniData = [0,0,0,0,0,0]
+            else:
+                masterUni = masterUnis.first()
+                uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
             masterSims = master.sim.all().order_by('simType')
 
             for sim in masterSims:
@@ -76,9 +80,12 @@ class csvSearchResults(ListView):
 
             for master in masterResults:
                 print(master.accession)
-                masterUni = master.uni.all().order_by('accession').first()
-                masterSims = master.sim.all().order_by('simType')
-                uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
+                masterUnis = master.uni.all().order_by('accession')
+                if masterUnis.count() == 0:
+                    uniData = [0,0,0,0,0,0]
+                else:
+                    masterUni = masterUnis.first()
+                    uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
                 masterSims = master.sim.all().order_by('simType')
 
                 for sim in masterSims:
