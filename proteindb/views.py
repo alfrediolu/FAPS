@@ -32,7 +32,6 @@ class searchResults(ListView):
                 simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
                 dataList = list(chain(simData, uniData))
                 finalResults.append(dataList)
-        print(finalResults)
         return finalResults
 
 # Functions as the redirect page if the .csv upload in invalid.
@@ -77,14 +76,15 @@ class csvSearchResults(ListView):
 
             for master in masterResults:
                 print(master.accession)
-                masterUnis = master.uni.all().order_by('accession')
+                masterUni = master.uni.all().order_by('accession')
+                masterSims = master.sim.all().order_by('simType')
+                uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
                 masterSims = master.sim.all().order_by('simType')
 
                 for sim in masterSims:
-                    simList = [sim]
-                    totalProtResults = chain(simList, masterUnis)
-
-                finalResults = chain(finalResults, totalProtResults)
+                    simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
+                    dataList = list(chain(simData, uniData))
+                    finalResults.append(dataList)
         csvAccession.objects.all().delete()
         return finalResults
 
