@@ -89,6 +89,23 @@ header {
     cursor: pointer;
 }
 
+.button-size-invalid {
+    font-size: 100%;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 500;
+    color: white !important;
+    background-color: cadetblue !important;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
 .button5:hover {
     background-color: lightblue !important;
     color: white;
@@ -105,6 +122,26 @@ header {
     padding-left: 0.2em;
     padding-right: 0.2em;
     padding-top: 0.2em;
+    border: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: lightgrey !important;
+
+}
+
+.card-invalid {
+    background-color: white !important;
+    height: 400px;
+    width: 700px;
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+    padding-bottom: 0.2em;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    padding-top: 0.2em;
+    border: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: lightgrey;
 }
 
 .imageColumn {
@@ -126,3 +163,12 @@ ul.separator li {
 ul.separator li:last-child {
     border-bottom: 0;
     }
+
+.button-center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
