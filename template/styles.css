@@ -144,6 +144,20 @@ header {
     border-color: lightgrey;
 }
 
+.card-help {
+    background-color: azure !important;
+    height: 600px;
+    width: 1300px;
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+    padding-bottom: 0.2em;
+    padding-left: 0.2em;
+    padding-right: 0.2em;
+    padding-top: 0.2em;
+    
+}
+
 .imageColumn {
     float: left;
     width: 5%;
@@ -171,4 +185,14 @@ ul.separator li:last-child {
     left: 50%;
     -ms-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
+}
+img {
+    max-width: 2000px;
+    height: 200px;
+}
+.img-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
