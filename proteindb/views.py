@@ -14,6 +14,10 @@ from django.contrib.auth import logout, authenticate, login
 class index(TemplateView):
     template_name = "index.html"
 
+#Instructions on how to use this webpage
+class help(TemplateView):
+    template_name = "help.html"
+
 # Takes the search input from index.html and runs a query with it for one protein (or any matches to the entry).
 # Search results are reorganized into a list to display in the way Dr. Sun wanted. Also calculates overall percents.
 # If no sim entry exists, it won't show up in the search - if no Uniprot entry exists, it defaults to a 0 vector with 100% unknown.
@@ -48,8 +52,6 @@ class searchResults(ListView):
         return finalResults
 
 
-class help(TemplateView):
-    template_name = "help.html"
 
 # Functions as the redirect page if the .csv upload in invalid.
 class csvSearchInvalid(TemplateView):
