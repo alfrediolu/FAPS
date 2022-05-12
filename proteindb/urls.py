@@ -11,7 +11,7 @@ from . views import index, help, searchResults, csvSearchResults, csvSearchInval
 # - login is the page where HPC submits login credentials too before uploading the spreadsheet to upload.
 
 urlpatterns = [
-    path('', index.as_view(), name = "index"),
+    path('index/', index.as_view(), name = "index"),
     path('help/', help.as_view(), name = "help"),
     path('search/', searchResults.as_view(), name = "searchresults"),
     path('csvsearch/', csvSearch.as_view(), name = "csvsearch"),
