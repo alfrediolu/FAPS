@@ -1,5 +1,5 @@
 from django.urls import path
-from . views import index, searchResults, csvSearchResults, csvSearchInvalid, csvSearch, upload, uploadLogin
+from . views import index, help, searchResults, csvSearchResults, csvSearchInvalid, csvSearch, upload, uploadLogin
 
 # Defines URLs for the page. All associated HTML files share the same name as the view the URL represents.
 # - index houses all the original input/search forms.
@@ -12,6 +12,7 @@ from . views import index, searchResults, csvSearchResults, csvSearchInvalid, cs
 
 urlpatterns = [
     path('', index.as_view(), name = "index"),
+    path('', help.as_view(), name = "help"),
     path('search/', searchResults.as_view(), name = "searchresults"),
     path('csvsearch/', csvSearch.as_view(), name = "csvsearch"),
     path('csvsearch/invalid', csvSearchInvalid.as_view(), name = "csvsearchinvalid"),

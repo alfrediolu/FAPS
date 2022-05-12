@@ -47,6 +47,10 @@ class searchResults(ListView):
                 finalResults.append(dataList)
         return finalResults
 
+
+class help(TemplateView):
+    template_name = "help.html"
+
 # Functions as the redirect page if the .csv upload in invalid.
 class csvSearchInvalid(TemplateView):
     template_name = "csvInvalid.html"
