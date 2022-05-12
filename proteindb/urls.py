@@ -1,5 +1,5 @@
 from django.urls import path
-from . views import index, heLp, searchResults, csvSearchResults, csvSearchInvalid, csvSearch, upload, uploadLogin
+from . views import index, help, searchResults, csvSearchResults, csvSearchInvalid, csvSearch, upload, uploadLogin
 
 # Defines URLs for the page. All associated HTML files share the same name as the view the URL represents.
 # - index houses all the original input/search forms.
