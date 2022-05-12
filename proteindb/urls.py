@@ -12,7 +12,7 @@ from . views import index, help, searchResults, csvSearchResults, csvSearchInval
 
 urlpatterns = [
     path('', index.as_view(), name = "index"),
-    path('help/', help.as_view(), name = "help"),
+    path('', help.as_view(), name = "help"),
     path('search/', searchResults.as_view(), name = "searchresults"),
     path('csvsearch/', csvSearch.as_view(), name = "csvsearch"),
     path('csvsearch/invalid', csvSearchInvalid.as_view(), name = "csvsearchinvalid"),
