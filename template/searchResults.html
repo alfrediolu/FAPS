@@ -22,7 +22,7 @@
     <br />
     <header>
         <a class="custom-logo-link img" href="#">
-            <img src="{% static "faps.png" %}" alt="faps" class="img-fluid">
+            <img src="{% static " faps.png" %}" alt="faps" class="img-fluid">
         </a>
         <nav>
             <ul class="nav__links">
@@ -87,52 +87,54 @@
                     </tr>
                     {% endfor %}
                 </table>
-                {% else %}
-                <div class="card-invalid">
-                    <br /><br /><br /><br />
-                    <div class="align-items-center">
-                        <h1 class="text-center" style="font-family: Arial; color: cadetblue; font-size: 25px; font-weight: 700;">Invalid Search Request</h1>
-                        <p class="text-center" style="font-family:Arial; color:lightslategrey; font-size: 15px;">No results found. Please refine your search, or check that the accession code is correct.</p>
-                        <br /><br /><br /><br />
-
-                        <form>
-                            <input type="button" class="button-size-invalid button5" value="GO BACK" onclick="history.go(-1)">
-
-                        </form>
-                    </div>
-                </div>
-                {% endif %}
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-        <br /><br /><br /><br /><br /><br /><br /><br />
-        <hr style="width: 100%; text-align: center; margin-left: 0; color: darkslategray; height:2px">
-        <br />
-        <center>
-            <a class="custom-logo-link-footer img" href="#">
-                <img src="{% static 'logo.png' %}" class="img-fluid" alt="logo">
-
-            </a>
-            &nbsp;
-            <a class="custom-logo-link-footer img" href="#">
-                <img src="{% static 'nci.png' %}" class="img-fluid" alt="nci">
-            </a>
-        </center>
-        <p class="text-center" style="font-family:Arial; color:lightslategrey; font-size: 15px;">
-            <small>
-                Created by Lucas Wilken & Nijhum Paul for BIOSUN/Biosensing Lab, organized by Dr. Dali Sun.<br />
-                This work used resources of the Center for Computationally Assisted Science and Technology (CCAST) at North Dakota State University.<br />
-                This work was financially supported by grants from the National Cancer Institute (R03CA252783, R21CA270748)
-                and the National Institute of General Medical Sciences (U54GM128729) of National Institutes of Health.
-            </small>
-
-
-        </p>
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </div>
+    {% else %}
+    <div class="card-invalid">
+        <br /><br /><br /><br />
+        <div class="align-items-center">
+            <h1 class="text-center" style="font-family: Arial; color: cadetblue; font-size: 25px; font-weight: 700;">Invalid Search Request</h1>
+            <p class="text-center" style="font-family:Arial; color:lightslategrey; font-size: 15px;">No results found. Please refine your search, or check that the accession code is correct.</p>
+            <br /><br /><br /><br />
+
+            <form>
+                <input type="button" class="button-size-invalid button5" value="GO BACK" onclick="history.go(-1)">
+
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <br /><br /><br /><br /><br /><br /><br /><br />
+    <hr style="width: 100%; text-align: center; margin-left: 0; color: darkslategray; height:2px">
+    <br />
+    <center>
+        <a class="custom-logo-link-footer img" href="#">
+            <img src="{% static 'logo.png' %}" class="img-fluid" alt="logo">
+
+        </a>
+        &nbsp;
+        <a class="custom-logo-link-footer img" href="#">
+            <img src="{% static 'nci.png' %}" class="img-fluid" alt="nci">
+        </a>
+    </center>
+    <p class="text-center" style="font-family:Arial; color:lightslategrey; font-size: 15px;">
+        <small>
+            Created by Lucas Wilken & Nijhum Paul for BIOSUN/Biosensing Lab, organized by Dr. Dali Sun.<br />
+            This work used resources of the Center for Computationally Assisted Science and Technology (CCAST) at North Dakota State University.<br />
+            This work was financially supported by grants from the National Cancer Institute (R03CA252783, R21CA270748)
+            and the National Institute of General Medical Sciences (U54GM128729) of National Institutes of Health.
+        </small>
+
+
+    </p>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 </body>
 </html>
