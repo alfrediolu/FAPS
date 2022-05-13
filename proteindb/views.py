@@ -14,7 +14,7 @@ from django.contrib.auth import logout, authenticate, login
 class index(TemplateView):
     template_name = "index.html"
 
-#Instructions on how to use this webpage
+# Instructions on how to use this webpage
 class helps(TemplateView):
     template_name = "help.html"
 
