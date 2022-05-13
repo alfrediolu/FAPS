@@ -22,7 +22,7 @@
     <br />
     <header>
         <a class="custom-logo-link img" href="#">
-            <img src="{% static "faps.png" %}" alt="faps" class="img-fluid">
+            <img src="{% static " faps.png" %}" alt="faps" class="img-fluid">
         </a>
         <nav>
             <ul class="nav__links">
@@ -43,11 +43,12 @@
         </p>
     </div>
 
+    {% if prot_list %}
     <div class="card-result">
         <br /><br /><br />
         <div class="card-body align-items-center">
             <div class="row justify-content-center align-items-center">
-                {% if prot_list %}
+
 
                 <table style="width:100%" , class="proteinResults">
                     <tr>
