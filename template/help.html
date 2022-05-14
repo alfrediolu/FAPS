@@ -32,7 +32,7 @@
 
     </header>
     <hr style="width: 100%; text-align: center; margin-left: 0; color: darkslategray; height: 2px">
-    <br /><br /><br />
+    <br /><br />
 
     <div class="card-help">
 
@@ -61,12 +61,17 @@
             <h1 class="text-left" style="font-family: Arial; color: darkslategray; font-size: 16px; font-weight: 700;">Results</h1>
             
             <p class="text-left" style="font-family: Arial; color: black; font-size: 14px;">
-                The result summarizes a set of secondary structure information of the protein of interest in a table. First column of the table indicates the accession ID/ protein ID that was 
-                searched for and the second column provides information about the simulation type. Next three columns (Sim Alpha, Sim Beta, Sim Turn) gives information about the 3-D 
+                The result summarizes a set of secondary structure information of the protein of interest in a table. First column of the table indicates the accession ID/ protein ID that was
+                searched for and the second column provides information about the simulation type. Next three columns (Sim Alpha, Sim Beta, Sim Turn) give information about the 3-D
                 structure information that was experimentally
-                determined from SWISS-PROT database. The next nine columns (Uniprot Alpha, Uniprot Beta, Uniprot Turn, Known Proportion, Unknown Proportion, Sequence Length, Overall Alpha, Overall Beta,	
-                Overall Turn) represent secondary structure information that was cumputed from UniProt database for a given accesion ID. 
-
+                determined from SWISS-PROT database. The next nine columns (Uniprot Alpha, Uniprot Beta, Uniprot Turn, Known Proportion, Unknown Proportion, Sequence Length, Overall Alpha, Overall Beta,
+                Overall Turn) represent secondary structure information that was cumputed from UniProt database for a given accesion ID.
+            </p>
+            <p class="text-left" style="font-family: Arial; color: black; font-size: 14px;">
+                Each of the structure’s proportion was calculated by dividing their total length by the sum of all parameter’s length. Known partial of each parameter was calculated by
+                dividing their total length by the length of PDB Structure known for that area. For instance, the total length of helix structure of P08670 was 194 and the sum of all
+                structures’ (helix, beta strand and turn) length was 203. Therefore, the helix percentage of the accession code P08670 was calculated (194/203)*100 or 95.5665% (Uniprot Alpha). The length
+                of PDB Structure known for that area was 466. Hence, the known partial helix percentage (kphp) of P08670 was calculated (194/ 466)*100 or 41.6309%.
             </p>
             <br />
 
