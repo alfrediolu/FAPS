@@ -68,14 +68,15 @@
                 Overall Turn) represent secondary structure information that was cumputed from UniProt database for a given accesion ID.
             </p>
             <p class="text-left" style="font-family: Arial; color: black; font-size: 14px;">
-                Each of the structure’s proportion was calculated by dividing their total length by the sum of all parameter’s length. Known partial of each parameter was calculated by
-                dividing their total length by the length of PDB Structure known for that area. For instance, the total length of helix structure of P08670 was 194 and the sum of all
-                structures’ (helix, beta strand and turn) length was 203. Therefore, the helix percentage of the accession code P08670 was calculated (194/203)*100 or 95.5665% (Uniprot Alpha). The length
-                of PDB Structure known for that area was 466. Hence, the known partial helix percentage (kphp) of P08670 was calculated (194/ 466)*100 or 41.6309%.
-            </p>
-            <br />
+                Each of the structure’s proportion (alpha, beta and turn) was calculated by dividing their total length by the sum of all parameter’s length.
+                For instance, the total length of helix structure of P08670 was 194
+                and the sum of all
+                structures’ (helix, beta strand and turn) length was 203. Therefore, the helix percentage of the accession code P08670 was calculated (194/203)*100 or 95.5665% (Uniprot Alpha).
+                The known proportion and unknown proportion are the total percentages of known structure vs total protein sequence length.
+                So the known column is the sum of the 3 secondary structure columns and the unknown is just the known subtracted from 1.
+                <br />
 
-        </div>
+</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
