@@ -18,8 +18,6 @@ class index(TemplateView):
 class helps(TemplateView):
     template_name = "help.html"
 
-class blah(TemplateView):
-    template_name = "blah.html"
 
 # Takes the search input from index.html and runs a query with it for one protein (or any matches to the entry).
 # Search results are reorganized into a list to display in the way Dr. Sun wanted. Also calculates overall percents.
@@ -31,6 +29,8 @@ class searchResults(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         finalResults = []
+        if query == '':
+            return finalResults
         masterResults = masterProtein.masterManage.search(query).order_by('accession')
 
         for master in masterResults:
