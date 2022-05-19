@@ -45,9 +45,9 @@ class searchResults(ListView):
             for sim in masterSims:
                 simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
                 dataList = list(chain(simData, uniData))
-                overallAlpha = (simData[2]*uniData[4] + uniData[0]*uniData[3])
-                overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])
-                overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])
+                overallAlpha = (simData[2]*uniData[4] + uniData[0]*uniData[3])/100
+                overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])/100
+                overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])/100
                 dataList.append(overallAlpha)
                 dataList.append(overallBeta)
                 dataList.append(overallTurn)
@@ -109,9 +109,9 @@ class csvSearchResults(ListView):
                 for sim in masterSims:
                     simData = [sim.accession, sim.simType, sim.alpha, sim.beta, sim.turn, sim.length]
                     dataList = list(chain(simData, uniData))
-                    overallAlpha = (simData[2]*uniData[4] + uniData[0]*uniData[3])
-                    overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])
-                    overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])
+                    overallAlpha = (simData[2]*uniData[4] + uniData[0]*uniData[3])/100
+                    overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])/100
+                    overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])/100
                     dataList.append(overallAlpha)
                     dataList.append(overallBeta)
                     dataList.append(overallTurn)
