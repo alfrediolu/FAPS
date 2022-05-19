@@ -225,6 +225,6 @@ def upload(request):
             logout(request)
             return HttpResponse("Error during upload/file read.")
         logout(request)
-        return JsonResponse(failedUploads, safe = False)
+        # return JsonResponse(failedUploads, safe = False)
     logout(request)
     return HttpResponse("Error, invalid access.")
