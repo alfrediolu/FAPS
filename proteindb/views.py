@@ -36,7 +36,7 @@ class searchResults(ListView):
         for master in masterResults:
             masterUnis = master.uni.all().order_by('accession')
             if masterUnis.count() == 0:
-                uniData = [0,0,0,0,1,0]
+                uniData = [0,0,0,0,100,0]
             else:
                 masterUni = masterUnis.first()
                 uniData = [masterUni.alpha, masterUni.beta, masterUni.turn, masterUni.known, masterUni.unknown, masterUni.length]
