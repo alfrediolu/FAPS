@@ -205,17 +205,29 @@ def upload(request):
                                     failedUploads.append(currentAccession)
                             if not simTypeMatch:
                                 print("Master has no sim with matching dataType, adding...")
-                                simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
-                                turn = row.Turn, simType = row.Type, length = row.Length, master = masterProt)
-                                simData.save()
+                                if row.Type == 'SWI'
+                                    protLength = row.Alpha + row.Beta + row.Turn + row.Unknown
+                                    simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                                    turn = row.Turn, simType = row.Type, length = protLength, master = masterProt)
+                                    simData.save()
+                                else
+                                    simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                                    turn = row.Turn, simType = row.Type, length = row.Length, master = masterProt)
+                                    simData.save()
 
                         elif  masterCount == 0:
                             print("No master protein found, creating and linking...")
                             masterProt = masterProtein(accession = currentAccession)
                             masterProt.save()
-                            simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
-                            turn = row.Turn, simType = row.Type, length = row.Length, master = masterProt)
-                            simData.save()
+                            if row.Type == 'SWI'
+                                protLength = row.Alpha + row.Beta + row.Turn + row.Unknown
+                                simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                                turn = row.Turn, simType = row.Type, length = protLength, master = masterProt)
+                                simData.save()
+                            else
+                                simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                                turn = row.Turn, simType = row.Type, length = row.Length, master = masterProt)
+                                simData.save()
 
                         else:
                             print("Multiple master proteins found, cannot create entry. Contact database administrator ASAP.")
