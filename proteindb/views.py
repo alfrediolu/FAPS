@@ -143,6 +143,7 @@ def upload(request):
     if request.method == 'POST':
         try:
             data = pd.read_json(request.body)
+            print(data)
             data = columnRename(data)
             data = data.fillna(0)
 
@@ -225,6 +226,6 @@ def upload(request):
             logout(request)
             return HttpResponse("Error during upload/file read.")
         logout(request)
-        # return JsonResponse(failedUploads, safe = False)
+        return JsonResponse(failedUploads, safe = False)
     logout(request)
     return HttpResponse("Error, invalid access.")
