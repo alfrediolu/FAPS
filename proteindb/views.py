@@ -187,7 +187,6 @@ def upload(request):
                 else:
                     print("Data is simulated.")
                     for row in data.itertuples(index = False, name = 'protein'):
-                        print(row)
                         currentAccession = row.Accession
                         print(currentAccession)
                         masterList = masterProtein.masterManage.search(currentAccession)
@@ -238,7 +237,6 @@ def upload(request):
             logout(request)
             return HttpResponse("Error during upload/file read.")
         logout(request)
-        print(failedUploads)
         return JsonResponse(failedUploads, safe = False)
     logout(request)
     return HttpResponse("Error, invalid access.")
