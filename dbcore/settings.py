@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-khxl+xh20!kf0zdls)*xf4awzczi7=o4)pxgy$4(k!8l5g%x6h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 # 127.0.0.1 is the local host for testing - no real need to use it.
 # Any Heroku apps should allowed herokuapp.com and/or the custom domain name chosen.
