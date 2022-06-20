@@ -18,7 +18,7 @@ class index(ListView):
     def get_queryset(self):
         size = []
         masterResults = masterProtein.masterManage.search('')
-        size.append(len(masterResults))
+        size.append(str(len(masterResults)))
         return size
 
 # Instructions on how to use this webpage
