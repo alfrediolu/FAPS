@@ -38,8 +38,11 @@
         <p class="text-center" style="font-family:Arial; color:lightslategrey; font-size: 15px;">
             <small>
                 This database contains secondary structure and sequence length data for proteins.<br />
-                Each query returns two data tables: one for Bioinformatics data taken from Uniprot, and one for simulated structure data.<br /><br /><br />
+                Each query returns two data tables: one for Bioinformatics data taken from Uniprot, and one for simulated structure data.<br /><br />
+                Current number of entries:<br />
             </small>
+            {% for num in db_size %}
+            <small>{{ num }}</small>
         </p>
 
         <div class="card">

@@ -11,8 +11,15 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout, authenticate, login
 
 # Functions as the index of the web app, housing all searches and buttons. See index.html for more detail.
-class index(TemplateView):
+class index(ListView):
     template_name = "index.html"
+    context_object_name = 'db_size'
+
+    def get_queryset(self):
+        size = []
+        masterResults = masterProtein.masterManage.search('')
+        size.append(len(masterResults))
+        return size
 
 # Instructions on how to use this webpage
 class helps(TemplateView):
