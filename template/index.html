@@ -38,7 +38,7 @@
         <p class="text-center" style="font-family:Arial; color:lightslategrey; font-size: 15px;">
             <small>
                 This database contains secondary structure and sequence length data for proteins.<br />
-                Each query returns two data tables: one for Bioinformatics data taken from Uniprot, and one for simulated structure data.<br /><br />
+                Each query returns two data sets: one for Bioinformatics data taken from Uniprot, and one for simulated structure data.<br /><br />
                 <b>Current Number of Entries:</b><br />
             </small>
             {% for num in db_size %}
@@ -53,7 +53,7 @@
 
                     <div class="col-5 text-center">
                         <h5 style="font-family:Times New Roman , Times, serif; color: darkslategrey; font-size: 20px;">Single-Protein Lookup</h5>
-                        <p style="font-family:Arial; color:lightslategrey; font-size: 14px;"> Enter a single accession code to filter results. Leaving blank will bring up all entries in database.</p>
+                        <p style="font-family:Arial; color:lightslategrey; font-size: 14px;"> Enter a single accession code to filter results.</p>
                         <form action="{% url 'searchresults' %}" method="get">
                             <input name="q" type="text" placeholder="Protein Accession Code">
                             <button type="submit" class="button-size button5">SEARCH</button>
