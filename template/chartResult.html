@@ -1,0 +1,203 @@
+<!--Controls the HTML for the index, and the associated buttons and forms.-->
+<!-- created by sara.tolba -->
+{% extends "_base.html"%}
+{% block content %}
+    <div class="container">
+        <div class=" text-center">
+            This database contains secondary structure and sequence length data for proteins.<br>
+            Each query returns two data tables: one for Bioinformatics data taken from Uniprot, and one for simulated
+            structure data.
+        </div>
+
+        <div class="row">
+        
+            <div class="col">
+                {% for Protein in prot_list %}
+                <table class="styled-table">
+                    <tr>
+                    <th >Accession Code:</th>
+                    <td>{{ Protein.0 }}</td>
+                    </tr>
+                    <th >Protein Name:</th>
+                    <td>{{ Protein.16 }}</td>
+                    </tr>
+                    <tr>
+                    <th title="Swiss model">Simulation Type:</th>
+                    <td title="Swiss model">{{ Protein.1 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Sim Alpha:</th>
+                    <td>{{ Protein.2 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Sim Beta:</th>
+                    <td>{{ Protein.3 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Sim Turn:</th>
+                    <td>{{ Protein.4 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Sim Length:</th>
+                    <td>{{ Protein.5 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Uniprot Alpha:</th>
+                    <td>{{ Protein.6 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Uniprot Beta:</th>
+                    <td>{{ Protein.7 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Uniprot Turn:</th>
+                    <td>{{ Protein.8 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Known Proportion:</th>
+                    <td>{{ Protein.9 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Unknown Proportion:</th>
+                    <td>{{ Protein.10 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Sequence Length:</th>
+                    <td>{{ Protein.11 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Overall Alpha:</th>
+                    <td>{{ Protein.12 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Overall Beta:</th>
+                    <td>{{ Protein.13 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Overall Turn:</th>
+                    <td>{{ Protein.14 }}</td>
+                    </tr>
+                    <tr>
+                    <th>Overall Other:</th>
+                    <td>{{ Protein.15 }}</td>
+                    </tr>
+                </table>
+                {% endfor %}
+            </div>
+
+            <div class="mt-4 justify-content-center col">
+                <div class="chart-container">
+                    <canvas id="single_chart">
+                    </canvas>
+                </div>
+
+                <div class="d-flex flex-row-reverse p-2 align-items-center">
+                    <a class="btn export_btn m-2" id="singleProteindownload" download="" href=""
+                         title="Export as image">
+                        <i class="fa-solid fa-file-image"></i> Export
+                    </a>
+                    <h5 class="align-self-center mx-auto selected-protein"></h6>
+                </div>
+            </div>
+
+
+            
+            
+          </div>
+
+
+    </div>
+
+
+    <script>
+        var labels = [
+            {% for value in prot_list %}'{{value.0}}', {% endfor %}
+        ]
+        
+
+        const color_turn = '#BCBCBC'
+        const color_alpha = '#FF8286'
+        const color_beta ='#A19DD9'
+        const color_other = '#7A7A7A'
+        
+        var selectedProtein ='{{ prot_list.0.0 }}'
+        const seletedProteinEl = document.querySelector(".selected-protein")
+        seletedProteinEl.innerHTML = selectedProtein
+
+
+        document.getElementById("singleProteindownload").addEventListener('click', function () {
+            var url_base64 = document.getElementById('single_chart').toDataURL('image/jpg');
+            var a = document.getElementById("singleProteindownload");
+            a.download = `${selectedProtein}.jpg`
+            a.href = url_base64;
+        });
+
+        let data_oneProtein = ['{{ prot_list.0.12 }}', '{{prot_list.0.13 }}', '{{ prot_list.0.14 }}','{{ prot_list.0.15 }}'];
+        const data_props = {
+            labels: [
+                'Overall Alpha',
+                'Overall Beta',
+                'Overall Turn',
+                'Overall Other'
+            ],
+            datasets: [{
+                label: '',
+                data: data_oneProtein,
+                backgroundColor: [
+                    // 'rgb(255, 99, 132)',
+                    // 'rgb(54, 162, 235)',
+                    // 'rgb(255, 205, 86)'
+                    color_alpha,
+                    color_beta,
+                    color_turn,
+                    color_other
+                ],
+                hoverOffset: 4
+            }]
+        };
+        
+
+        const config_oneProtein = {
+            type: 'doughnut',
+            data: data_props,
+            labels: {
+                render: 'label'
+            }
+        };
+
+        var single_chart = document.getElementById('single_chart');
+
+        var oneProteinChart = new Chart(single_chart, config_oneProtein)
+
+        var table = document.getElementById("proteinTable");
+
+        for (var i = 1; i < table.rows.length; i++) {
+            table.rows[i].onclick = function () {
+                hadnleOnProteinClick(this);
+            };
+
+        }
+
+
+        function hadnleOnProteinClick(tableRow) {
+            const len = tableRow.childNodes.length
+            const overall_alpha = (tableRow.childNodes[len - 8].innerHTML == undefined) ? 0 : tableRow.childNodes[len - 8].innerHTML
+            const overall_beta = (tableRow.childNodes[len - 6].innerHTML == undefined) ? 0 : tableRow.childNodes[len - 6].innerHTML
+            const overall_turn = (tableRow.childNodes[len - 4].innerHTML == undefined) ? 0 : tableRow.childNodes[len - 4].innerHTML
+            const overall_other = (tableRow.childNodes[len - 2].innerHTML == undefined) ? 0 : tableRow.childNodes[len - 2].innerHTML
+
+            const label = tableRow.childNodes[1].innerHTML;
+            var dataset = [overall_alpha, overall_beta, overall_turn,overall_other];
+            var data = { 'label': label, 'dataset': dataset };
+            console.log(data);
+            oneProteinChart.data.datasets.forEach((dataset) => {
+                console.log(dataset)
+                dataset.data = [];
+                dataset.data = data.dataset;
+            });
+            oneProteinChart.update();
+            seletedProteinEl.innerHTML = label
+        }
+
+    </script>
+  {% endblock %}

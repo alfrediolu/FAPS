@@ -1,0 +1,68 @@
+<!--Controls the HTML for the index, and the associated buttons and forms.-->
+
+{% extends "_base.html" %}
+{% block content %}
+    <div class="container-fluid">
+        <p class="text-center" style="font-family:Arial; color:lightslategrey; font-size: 15px;">
+            <small>
+                This database contains secondary structure and sequence length data for proteins.<br />
+                Each query returns two data tables: one for Bioinformatics data taken from Uniprot, and one for simulated structure data.<br />
+            </small>
+        </p>
+    </div>
+
+    {% if prot_list %}
+    <div class="card-result">
+        <br /><br /><br />
+        <div class="card-body align-items-center">
+            <div class="row justify-content-center align-items-center">
+
+
+                <table style="width:100%" , class="proteinResults">
+                    <tr>
+                        <th>Accession Code</th>
+                        <th>Simulation Type</th>
+                        <th>Sim Alpha</th>
+                        <th>Sim Beta</th>
+                        <th>Sim Turn</th>
+                        <th>Sim Length</th>
+                        <th>Uniprot Alpha</th>
+                        <th>Uniprot Beta</th>
+                        <th>Uniprot Turn</th>
+                        <th>Known Proportion</th>
+                        <th>Unknown Proportion</th>
+                        <th>Sequence Length</th>
+                        <th>Overall Alpha</th>
+                        <th>Overall Beta</th>
+                        <th>Overall Turn</th>
+                    </tr>
+                    {% for Protein in prot_list %}
+                    <tr>
+                        <td>{{ Protein.0 }}</td>
+                        <td>{{ Protein.1 }}</td>
+                        <td>{{ Protein.2 }}</td>
+                        <td>{{ Protein.3 }}</td>
+                        <td>{{ Protein.4 }}</td>
+                        <td>{{ Protein.5 }}</td>
+                        <td>{{ Protein.6 }}</td>
+                        <td>{{ Protein.7 }}</td>
+                        <td>{{ Protein.8 }}</td>
+                        <td>{{ Protein.9 }}</td>
+                        <td>{{ Protein.10 }}</td>
+                        <td>{{ Protein.11 }}</td>
+                        <td>{{ Protein.12 }}</td>
+                        <td>{{ Protein.13 }}</td>
+                        <td>{{ Protein.14 }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    
+    {% include "partials/_invalid-card.html" %}
+    
+    {% endif %}
+
+    {% endblock %}

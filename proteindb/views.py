@@ -9,6 +9,8 @@ import pandas as pd
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout, authenticate, login
+import requests
+import json
 
 # Functions as the index of the web app, housing all searches and buttons. See index.html for more detail.
 class index(ListView):
@@ -34,7 +36,7 @@ class searchResults(ListView):
     context_object_name = 'prot_list'
 
     def get_queryset(self):
-        query = self.request.GET.get('q')
+        query = self.request.GET.get('id') # change q to id to be more readable. 
         finalResults = []
         if query == '':
             return finalResults
@@ -42,6 +44,7 @@ class searchResults(ListView):
 
         for master in masterResults:
             masterUnis = master.uni.all().order_by('accession')
+            protein_name = fetchProteinName(master.accession)
             if masterUnis.count() == 0:
                 uniData = [0,0,0,0,100,0]
             else:
@@ -55,13 +58,77 @@ class searchResults(ListView):
                 overallAlpha = (simData[2]*uniData[4] + uniData[0]*uniData[3])/100
                 overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])/100
                 overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])/100
+                overallOther = 100 - (overallAlpha+overallBeta+overallTurn)
                 dataList.append(overallAlpha)
                 dataList.append(overallBeta)
                 dataList.append(overallTurn)
+                dataList.append(overallOther)
+                dataList.append(protein_name)
                 finalResults.append(dataList)
         return finalResults
 
+def fetchProteinName(accession):
+    """ Retreive the protein name based on the accession code of the protein.
+    Arguments:
+        accession: accession code of protein
+    Returns:
+        String represents the protein name otherwise, empty.
+    """
+    name=""
+    response = requests.get(f"https://rest.uniprot.org/uniprotkb/{accession}")
+    if(response):
+        accession_data = json.loads(response.text)
+        name = accession_data["proteinDescription"]["recommendedName"]["fullName"]["value"]
+    
+    return name
 
+class chartResults(ListView):
+    """ The details page representing a list of protein properties with chart for alpha, beta and turn values. 
+    It takes the id from the search input in homepage.
+    Paramaters: 
+        id: represent the accession code of protein
+    """
+    template_name = "chartResult.html"
+    context_object_name = 'prot_list'
+
+    def get_queryset(self):
+        query = self.request.GET.get('id')
+        finalResults = []
+        if query == '':
+            return finalResults
+        query = query.split(',')
+        masterResults = masterProtein.masterManage.filter(
+            accession__in=query).order_by('accession')
+
+        for master in masterResults:
+            masterUnis = master.uni.all().order_by('accession')
+            protein_name = fetchProteinName(master.accession)
+            if masterUnis.count() == 0:
+                uniData = [0, 0, 0, 0, 100, 0]
+            else:
+                masterUni = masterUnis.first()
+                uniData = [masterUni.alpha, masterUni.beta, masterUni.turn,
+                           masterUni.known, masterUni.unknown, masterUni.length]
+            masterSims = master.sim.all().order_by('simType')
+
+            for sim in masterSims:
+                simData = [sim.accession, sim.simType,
+                           sim.alpha, sim.beta, sim.turn, sim.length]
+                dataList = list(chain(simData, uniData))
+                overallAlpha = (simData[2]*uniData[4] +
+                                uniData[0]*uniData[3])/100
+                overallBeta = (simData[3]*uniData[4] +
+                               uniData[1]*uniData[3])/100
+                overallTurn = (simData[4]*uniData[4] +
+                               uniData[2]*uniData[3])/100
+                overallOther = 100 - (overallAlpha+overallBeta+overallTurn)
+                dataList.append(overallAlpha)
+                dataList.append(overallBeta)
+                dataList.append(overallTurn)
+                dataList.append(overallOther)
+                dataList.append(protein_name)
+                finalResults.append(dataList)
+        return finalResults
 
 # Functions as the redirect page if the .csv upload in invalid.
 class csvSearchInvalid(TemplateView):

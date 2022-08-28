@@ -12,53 +12,132 @@
     </div>
 
     {% if prot_list %}
-    <div class="card-result">
-        <br /><br /><br />
-        <div class="card-body align-items-center">
-            <div class="row justify-content-center align-items-center">
+    <div class="styled-table table-responsive col align-self-center mx-auto col-md-10">
+        <table
+          class="table table-hover "
+          id="proteinTable"
+          style="text-align: center;"
+        >
+          <thead>
+            <tr>
+              <th style="width: 15%;">Accession Code</th>
+              <th >Protein Name</th>
+              <th >Simulation Type</th>
+              <th style="width: 15%;">Sequence Length</th>
+              <th >Overall Constitute</th>
+              <th style="width: 5%;">Detail</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for Protein in prot_list %}
+            <tr style="cursor: pointer; text-align: center">
+              <td >{{ Protein.0 }}</td>
+              <td >{{ Protein.16 }}</td>
+              <td >{{ Protein.1 }}</td>
+              <td >{{ Protein.11 }}</td>
+              <td ></td>
+              <td>
+                <button type="button" class="btn btn-floating">
+                  <a href="{% url 'chartResult'%}?id={{ Protein.0 }} ">
+                    <i
+                      class="far fa-arrow-alt-circle-right"
+                      style="font-size: 1.5rem;color: cadetblue;"
+                    >
+                    </i>
+                  </a>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        
 
 
-                <table style="width:100%" , class="proteinResults">
-                    <tr>
-                        <th>Accession Code</th>
-                        <th>Simulation Type</th>
-                        <th>Sim Alpha</th>
-                        <th>Sim Beta</th>
-                        <th>Sim Turn</th>
-                        <th>Sim Length</th>
-                        <th>Uniprot Alpha</th>
-                        <th>Uniprot Beta</th>
-                        <th>Uniprot Turn</th>
-                        <th>Known Proportion</th>
-                        <th>Unknown Proportion</th>
-                        <th>Sequence Length</th>
-                        <th>Overall Alpha</th>
-                        <th>Overall Beta</th>
-                        <th>Overall Turn</th>
-                    </tr>
-                    {% for Protein in prot_list %}
-                    <tr>
-                        <td>{{ Protein.0 }}</td>
-                        <td>{{ Protein.1 }}</td>
-                        <td>{{ Protein.2 }}</td>
-                        <td>{{ Protein.3 }}</td>
-                        <td>{{ Protein.4 }}</td>
-                        <td>{{ Protein.5 }}</td>
-                        <td>{{ Protein.6 }}</td>
-                        <td>{{ Protein.7 }}</td>
-                        <td>{{ Protein.8 }}</td>
-                        <td>{{ Protein.9 }}</td>
-                        <td>{{ Protein.10 }}</td>
-                        <td>{{ Protein.11 }}</td>
-                        <td>{{ Protein.12 }}</td>
-                        <td>{{ Protein.13 }}</td>
-                        <td>{{ Protein.14 }}</td>
-                    </tr>
-                    {% endfor %}
-                </table>
-            </div>
+
         </div>
     </div>
+
+    <script>
+
+        var table = document.getElementById("proteinTable");
+        var dataset = {
+            label: [{% for value in prot_list %}'{{value.0}}', {% endfor %}],
+        overall_alpha: [{% for value in prot_list %}'{{value.12}}', {% endfor %}],
+        overall_beta: [{% for value in prot_list %}'{{value.13}}', {% endfor %}],
+        overall_turn: [{% for value in prot_list %}'{{value.14}}', {% endfor %}],
+        overall_other: [{% for value in prot_list %}'{{value.15}}', {% endfor %}],
+        }
+        var tableLab = [];
+        //loop all rows and form data array
+        for (var i = 1; i < table.rows.length; i++) {
+  
+            tableLab.push(table.rows[i].cells[0].innerHTML)
+            var canvas = document.createElement("canvas");
+            canvas.setAttribute("id", "myChart" + i);
+            canvas.height = 50;
+            table.rows[i].cells[4].appendChild(canvas);
+        }
+        //console.log(tableArr[0][0].overall_alpha);
+  
+        //loop array of data and create chart for each row
+        var labels = [{% for value in prot_list %}'{{value.0}}', {% endfor %}]
+        const color_turn = '#BCBCBC'
+        const color_alpha = '#FF8286'
+        const color_beta = '#A19DD9'
+        const color_other = '#7A7A7A'
+  
+        // tableArr.forEach(function (d, i) {
+  
+        //     console.log("index: ",i)
+        //     console.log(d[i])
+        // })
+        tableLab.forEach(function (d, i) {
+            console.log(dataset.label[i])
+            var chartID = "myChart" + (i + 1)
+            var ctx = document.getElementById(chartID).getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'horizontalBar',
+                data: {
+                    labels: [''],
+                    datasets: [
+                        {
+  
+                            label: 'Overall Alpha',
+                            data: [dataset.overall_alpha[i]],
+                            backgroundColor: color_alpha,
+                        },
+                        {
+                            label: 'Overall Beta',
+                            data: [dataset.overall_beta[i]],
+                            backgroundColor: color_beta,
+                        },
+                        {
+                            label: 'Overall turn',
+                            data: [dataset.overall_turn[i]],
+                            backgroundColor: color_turn,
+                        },
+                        {
+                            label: 'Overall Other',
+                            data: [dataset.overall_other[i]],
+                            backgroundColor: color_other,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        xAxes: [{ stacked: true, barThickness: 10, display: false, }],
+                        yAxes: [{ stacked: true, barThickness: 20, display: false, }]
+                    },
+                    legend: {
+                        display: false
+                    },
+                }
+            });
+        })
+      </script>
     {% else %}
     
     {% include "partials/_invalid-card.html" %}
