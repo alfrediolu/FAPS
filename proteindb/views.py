@@ -173,6 +173,7 @@ class csvSearchResults(ListView):
             for master in masterResults:
                 print(master.accession)
                 masterUnis = master.uni.all().order_by('accession')
+                protein_name = fetchProteinName(master.accession)
                 if masterUnis.count() == 0:
                     uniData = [0,0,0,0,100,0]
                 else:
@@ -186,9 +187,13 @@ class csvSearchResults(ListView):
                     overallAlpha = (simData[2]*uniData[4] + uniData[0]*uniData[3])/100
                     overallBeta = (simData[3]*uniData[4] + uniData[1]*uniData[3])/100
                     overallTurn = (simData[4]*uniData[4] + uniData[2]*uniData[3])/100
+                    
+                    overallOther = 100 - (overallAlpha+overallBeta+overallTurn)
                     dataList.append(overallAlpha)
                     dataList.append(overallBeta)
                     dataList.append(overallTurn)
+                    dataList.append(overallOther)
+                    dataList.append(protein_name)
                     finalResults.append(dataList)
         csvAccession.objects.all().delete()
         return finalResults
