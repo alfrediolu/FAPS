@@ -1,16 +1,5 @@
 <!--Controls the HTML for the index, and the associated buttons and forms.-->
 {% extends "_base.html" %}
 {% block content %}
-    <div class="card-invalid">
-        <br /><br /><br /><br />
-        <div class="card-body align-items-center">
-            <h1 class="text-center" style="font-family: Arial; color: cadetblue; font-size: 25px; font-weight: 700;">Invalid Search Request</h1>
-            <p class="text-center" style="font-family:Arial; color:lightslategrey; font-size: 15px;">Something went wrong with the file upload - check that the file type is a .csv and it contains a column with the name 'Accession'.</p>
-            <br /><br />
-            <form>
-                <input type="button" class="button-size-invalid button5 button-center" value="GO BACK" onclick="history.go(-1)">
-
-            </form>
-        </div>
-    </div>
+    {% include "partials/_invalid-card.html" %}
 {% endblock %}
