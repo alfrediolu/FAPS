@@ -1,0 +1,28 @@
+{% load static %}
+<header>
+    <a class="custom-logo-link img" href="{% url 'index' %}">
+      <img src="{% static "faps.png" %}" alt="faps" class="img-fluid">
+    </a>
+    <nav>
+      <ul class="nav__links">
+        <li><a href="{% url 'index' %}">Search</a></li>
+        <li><a href="{% url 'help' %}">Help</a></li>
+        <li>
+          <a
+            href="https://forms.office.com/Pages/ResponsePage.aspx?id=kaA37Ka55UeY0JA9SkGSA5hHKDVTM0JNnaGAzi9LwPhUQkxINko0VEo2SDhRSjNFU0NUTjFJUUZLTi4u"
+            >Feedback</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <hr
+    style="
+      width: 100%;
+      text-align: center;
+      margin-left: 0;
+      color: darkslategray;
+      height: 2px;
+    "
+  />
+  <br />
