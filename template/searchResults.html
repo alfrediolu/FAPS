@@ -140,7 +140,7 @@
       </script>
     {% else %}
     
-    {% include "partials/_invalid-card.html" %}
+    {% include "partials/_invalid-card.html" with msg="No results found.Please refine your search, or check that the accession code is correct." only %}
     
     {% endif %}
 
