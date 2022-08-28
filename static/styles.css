@@ -249,3 +249,74 @@ th {
     color: darkslategray;
     background: azure;
 }
+
+
+/* Search Bar in the homepage */
+
+.search {
+    position: relative;
+    box-shadow: 0 0 40px rgba(51, 51, 51, 0.1);
+  }
+  
+  .search input {
+    height: 60px;
+    text-indent: 25px;
+    border: 2px solid #d6d4d4;
+  }
+  
+  .search input:focus {
+    box-shadow: none;
+    border: 2px solid cadetblue;
+  }
+  
+  .search .fa-search {
+    position: absolute;
+    top: 20px;
+    left: 16px;
+  }
+  
+  .search .search-controls {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 50px;
+    align-items: center;
+  }
+  .search-controls button,
+  .help_btn {
+    background-color: cadetblue;
+    color: white;
+    height: 50px;
+    align-items: center;
+  }
+  .search-controls button:hover,
+  .help_btn:hover {
+    background-color: #69a9a2;
+    color: white;
+  }
+  /* End Search bar */
+
+  /* Scrollbar  */
+
+  body::-webkit-scrollbar-track,
+  .styled-table::-webkit-scrollbar-track
+  {
+      -webkit-box-shadow: inset 0 0 3px rgb(0, 152, 121);
+      border-radius: 10px;
+      background-color: #F5F5F5;
+  }
+  body::-webkit-scrollbar,
+  .styled-table::-webkit-scrollbar
+  {
+      width: 10px;
+      height: 10px;
+      background-color: #F5F5F5;
+  }
+  body::-webkit-scrollbar-thumb,
+  .styled-table::-webkit-scrollbar-thumb
+  {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 3px rgb(0, 152, 121);
+      background-color: rgb(95, 158, 160);
+  }
+    /* End Scrollbar  */

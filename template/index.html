@@ -16,7 +16,7 @@
     <small>{{ num }}</small>
     {% endfor %}
   </p>
-
+<!-- 
   <div class="card">
     <br /><br /><br />
     <div class="card-body align-items-center">
@@ -66,6 +66,52 @@
         </div>
       </div>
     </div>
+  </div> -->
+
+  <div class="row height d-flex justify-content-center align-items-center">
+    <div class="col-md-8">
+      <div class="search">
+        <i class="fa fa-search"></i>
+
+        <form
+          id="search-form"
+          method="post"
+          enctype="multipart/form-data"
+          action="{% url 'csvsearch' %}"
+        >
+          <input
+            type="file"
+            accept=".csv,.xlsx"
+            onchange="print()"
+            style="display: none"
+            id="file"
+            name="uploadedCSV"
+            class="form-control"
+          />
+
+          <input
+            type="text"
+            name="id"
+            id="inputSearch"
+            class="form-control"
+            placeholder="Enter Single-Protein code or Upload a .csv file with a column name 'Accession'"
+          />
+
+          <div class="search-controls">
+            <button
+              class="btn"
+              type="button"
+              title="Upload a .csv file with a column name 'Accession' "
+              id="attachement"
+              onclick="document.getElementById('file').click();">
+              <i class="fa-solid fa-paperclip"></i> Upload file
+            </button>
+            <button id="search-btn" type="submit" class="btn">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
+
 </div>
 {% endblock %}
