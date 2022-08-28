@@ -16,7 +16,7 @@
     <small>{{ num }}</small>
     {% endfor %}
   </p>
-<!-- 
+  <!-- 
   <div class="card">
     <br /><br /><br />
     <div class="card-body align-items-center">
@@ -79,19 +79,20 @@
           enctype="multipart/form-data"
           action="{% url 'csvsearch' %}"
         >
+        {% csrf_token %}
           <input
             type="file"
-            accept=".csv,.xlsx"
+            accept=".csv"
             onchange="print()"
             style="display: none"
             id="file"
             name="uploadedCSV"
             class="form-control"
           />
-
+          {% csrf_token %}
           <input
             type="text"
-            name="id"
+            name="q"
             id="inputSearch"
             class="form-control"
             placeholder="Enter Single-Protein code or Upload a .csv file with a column name 'Accession'"
@@ -103,7 +104,8 @@
               type="button"
               title="Upload a .csv file with a column name 'Accession' "
               id="attachement"
-              onclick="document.getElementById('file').click();">
+              onclick="document.getElementById('file').click();"
+            >
               <i class="fa-solid fa-paperclip"></i> Upload file
             </button>
             <button id="search-btn" type="submit" class="btn">Search</button>
@@ -113,5 +115,30 @@
     </div>
   </div>
 
+  <script>
+    function print() {
+      const inputFile = document.getElementById("file");
+
+      const inputSearch = document.getElementById("inputSearch");
+      inputSearch.value = inputFile.value;
+    }
+
+    let search_form = document.getElementById("search-form");
+    let search_input = document.getElementById("inputSearch");
+    let search_button = document.getElementById("search-btn");
+
+    search_button.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (
+        !search_input.value.endsWith(".csv") ||
+        !search_input.value.endsWith(".csv")
+      ) {
+        search_form.method = "get";
+        search_form.action = "{% url 'searchresults' %}";
+      }
+
+      search_form.submit();
+    });
+  </script>
 </div>
 {% endblock %}
