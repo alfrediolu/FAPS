@@ -74,7 +74,7 @@ def fetchProteinName(accession):
     Returns:
         String represents the protein name otherwise, empty.
     """
-    name=""
+    name="N/A"
     response = requests.get(f"https://rest.uniprot.org/uniprotkb/{accession}")
     if(response):
         accession_data = json.loads(response.text)
