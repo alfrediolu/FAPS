@@ -299,12 +299,12 @@ def upload(request):
                                     protLength = a+b+t+u
                                 print("Master has no sim with matching dataType, adding...")
                                 if row.Type == 'SWI':
-                                    simData = simProtein(accession = currentAccession, alpha = a/protLength, beta = b/protLength,
-                                    turn = t/protLength, simType = row.Type, length = protLength, master = masterProt)
+                                    simData = simProtein(accession = currentAccession, alpha = a/protLength*100, beta = b/protLength*100,
+                                    turn = t/protLength*100, simType = row.Type, length = protLength, master = masterProt)
                                     simData.save()
                                 else:
-                                    simData = simProtein(accession = currentAccession, alpha = a/row.Length, beta = b/row.Length,
-                                    turn = t/row.Length, simType = row.Type, length = row.Length, master = masterProt)
+                                    simData = simProtein(accession = currentAccession, alpha = a/row.Length*100, beta = b/row.Length*100,
+                                    turn = t/row.Length*100, simType = row.Type, length = row.Length, master = masterProt)
                                     simData.save()
 
                         elif  masterCount == 0:
@@ -323,12 +323,12 @@ def upload(request):
                             else:
                                 protLength = a+b+t+u
                             if row.Type == 'SWI':
-                                simData = simProtein(accession = currentAccession, alpha = a/protLength, beta = b/protLength,
-                                turn = t/protLength, simType = row.Type, length = protLength, master = masterProt)
+                                simData = simProtein(accession = currentAccession, alpha = a/protLength*100, beta = b/protLength*100,
+                                turn = t/protLength*100, simType = row.Type, length = protLength, master = masterProt)
                                 simData.save()
                             else:
-                                simData = simProtein(accession = currentAccession, alpha = a/row.Length, beta = b/row.Length,
-                                turn = t/row.Length, simType = row.Type, length = row.Length, master = masterProt)
+                                simData = simProtein(accession = currentAccession, alpha = a/row.Length*100, beta = b/row.Length*100,
+                                turn = t/row.Length*100, simType = row.Type, length = row.Length, master = masterProt)
                                 simData.save()
 
                         else:
