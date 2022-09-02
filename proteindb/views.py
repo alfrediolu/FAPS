@@ -74,7 +74,7 @@ def fetchProteinName(accession):
     Returns:
         String represents the protein name otherwise, empty.
     """
-    name="N/A"
+    name=""
     response = requests.get(f"https://rest.uniprot.org/uniprotkb/{accession}")
     if(response):
         accession_data = json.loads(response.text)
@@ -287,12 +287,12 @@ def upload(request):
                                 print("Master has no sim with matching dataType, adding...")
                                 if row.Type == 'SWI':
                                     protLength = row.Alpha + row.Beta + row.Turn + row.Unknown
-                                    simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
-                                    turn = row.Turn, simType = row.Type, length = protLength, master = masterProt)
+                                    simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength, beta = row.Beta/protLength,
+                                    turn = row.Turn/protLength, simType = row.Type, length = protLength, master = masterProt)
                                     simData.save()
                                 else:
-                                    simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
-                                    turn = row.Turn, simType = row.Type, length = row.Length, master = masterProt)
+                                    simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength, beta = row.Beta/protLength,
+                                    turn = row.Turn/protLength, simType = row.Type, length = row.Length, master = masterProt)
                                     simData.save()
 
                         elif  masterCount == 0:

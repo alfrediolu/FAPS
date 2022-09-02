@@ -13,7 +13,7 @@ def columnRename(df):
     colNames = df.columns
     helixMatches = ["helix", "alpha", "a-helix"]
     betaMatches = ["beta", "sheet", "b-sheet"]
-    turnMatches = ["turn", "random", "coil",]
+    turnMatches = ["turn", "random", "coil"]
 
     for name in colNames:
         nameCheck = name.lower()
