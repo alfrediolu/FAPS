@@ -284,51 +284,33 @@ def upload(request):
                                     simTypeMatch = True
                                     failedUploads.append(currentAccession)
                             if not simTypeMatch:
-                                masterProt = masterProtein(accession = currentAccession)
-                                masterProt.save()
-                                a = row.Alpha
-                                b = row.Beta
-                                t = row.Turn
-                                u = row.Unknown
-                                if not (isinstance(a,float) and isinstance(b,float) and isinstance(t,float)):
-                                    a = 0
-                                    b = 0
-                                    t = 0
-                                    protLength = u
-                                else:
-                                    protLength = a+b+t+u
                                 print("Master has no sim with matching dataType, adding...")
+                                protLength = row.Alpha + row.Beta + row.Turn + row.Unknown
+                                print(row.Alpha)
+                                print(protLength)
                                 if row.Type == 'SWI':
-                                    simData = simProtein(accession = currentAccession, alpha = a/protLength*100, beta = b/protLength*100,
-                                    turn = t/protLength*100, simType = row.Type, length = protLength, master = masterProt)
+                                    simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength, beta = row.Beta/protLength,
+                                    turn = row.Turn/protLength, simType = row.Type, length = protLength, master = masterProt)
                                     simData.save()
                                 else:
-                                    simData = simProtein(accession = currentAccession, alpha = a/row.Length*100, beta = b/row.Length*100,
-                                    turn = t/row.Length*100, simType = row.Type, length = row.Length, master = masterProt)
+                                    simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength, beta = row.Beta/protLength,
+                                    turn = row.Turn/protLength, simType = row.Type, length = row.Length, master = masterProt)
                                     simData.save()
 
                         elif  masterCount == 0:
                             print("No master protein found, creating and linking...")
                             masterProt = masterProtein(accession = currentAccession)
                             masterProt.save()
-                            a = row.Alpha
-                            b = row.Beta
-                            t = row.Turn
-                            u = row.Unknown
-                            if not (isinstance(a,float) and isinstance(b,float) and isinstance(t,float)):
-                                a = 0
-                                b = 0
-                                t = 0
-                                protLength = u
-                            else:
-                                protLength = a+b+t+u
+                            protLength = row.Alpha + row.Beta + row.Turn + row.Unknown
+                            print(row.Alpha)
+                            print(protLength)
                             if row.Type == 'SWI':
-                                simData = simProtein(accession = currentAccession, alpha = a/protLength*100, beta = b/protLength*100,
-                                turn = t/protLength*100, simType = row.Type, length = protLength, master = masterProt)
+                                simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                                turn = row.Turn, simType = row.Type, length = protLength, master = masterProt)
                                 simData.save()
                             else:
-                                simData = simProtein(accession = currentAccession, alpha = a/row.Length*100, beta = b/row.Length*100,
-                                turn = t/row.Length*100, simType = row.Type, length = row.Length, master = masterProt)
+                                simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
+                                turn = row.Turn, simType = row.Type, length = row.Length, master = masterProt)
                                 simData.save()
 
                         else:
