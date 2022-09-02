@@ -78,8 +78,10 @@ def fetchProteinName(accession):
     response = requests.get(f"https://rest.uniprot.org/uniprotkb/{accession}")
     if(response):
         accession_data = json.loads(response.text)
-        name = accession_data["proteinDescription"]["recommendedName"]["fullName"]["value"]
-    
+        try:
+            name = accession_data["proteinDescription"]["recommendedName"]["fullName"]["value"]
+        except:
+            name=accession
     return name
 
 class chartResults(ListView):
