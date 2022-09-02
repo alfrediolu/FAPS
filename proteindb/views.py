@@ -1,4 +1,3 @@
-from typing import final
 from django.views.generic.base import View
 from . models import uniProtein, simProtein, csvAccession, masterProtein
 from django.views.generic import ListView, TemplateView
@@ -11,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth import logout, authenticate, login
 import requests
 import json
+import traceback
 
 # Functions as the index of the web app, housing all searches and buttons. See index.html for more detail.
 class index(ListView):
@@ -295,11 +295,9 @@ def upload(request):
                                     protLength = row.Unknown
 
                                 if row.Type == 'SWI':
-                                    print(masterProt)
                                     simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength, beta = row.Beta/protLength,
                                     turn = row.Turn/protLength, simType = row.Type, length = protLength, master = masterProt)
                                     simData.save()
-                                    print('check')
                                 else:
                                     simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength, beta = row.Beta/protLength,
                                     turn = row.Turn/protLength, simType = row.Type, length = row.Length, master = masterProt)
@@ -334,7 +332,7 @@ def upload(request):
             else:
                 print("Did not contain a Type key, no data added.")
         except Exception as e:
-            print(e)
+            traceback.print_exc()
             logout(request)
             return HttpResponse("Error during upload/file read.")
         logout(request)
