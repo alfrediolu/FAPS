@@ -331,7 +331,8 @@ def upload(request):
                             failedUploads.append(currentAccession)
             else:
                 print("Did not contain a Type key, no data added.")
-        except:
+        except Exception as e:
+            print(e)
             logout(request)
             return HttpResponse("Error during upload/file read.")
         logout(request)
