@@ -295,9 +295,11 @@ def upload(request):
                                     protLength = row.Unknown
 
                                 if row.Type == 'SWI':
+                                    print(masterProt)
                                     simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength, beta = row.Beta/protLength,
                                     turn = row.Turn/protLength, simType = row.Type, length = protLength, master = masterProt)
                                     simData.save()
+                                    print('check')
                                 else:
                                     simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength, beta = row.Beta/protLength,
                                     turn = row.Turn/protLength, simType = row.Type, length = row.Length, master = masterProt)
