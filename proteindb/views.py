@@ -286,14 +286,6 @@ def upload(request):
                             if not simTypeMatch:
                                 print("Master has no sim with matching dataType, adding...")
 
-                                if isinstance(row.Alpha, float) and isinstance(row.Beta, float) and isinstance(row.Turn, float):
-                                    protLength = row.Alpha + row.Beta + row.Turn + row.Unknown
-                                else:
-                                    row.Alpha = 0
-                                    row.Beta = 0
-                                    row.Turn = 0
-                                    protLength = row.Unknown
-
                                 if row.Type == 'SWI':
                                     simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength, beta = row.Beta/protLength,
                                     turn = row.Turn/protLength, simType = row.Type, length = protLength, master = masterProt)
@@ -308,14 +300,6 @@ def upload(request):
                             masterProt = masterProtein(accession = currentAccession)
                             masterProt.save()
 
-                            if isinstance(row.Alpha, float) and isinstance(row.Beta, float) and isinstance(row.Turn, float):
-                                protLength = row.Alpha + row.Beta + row.Turn + row.Unknown
-                            else:
-                                row.Alpha = 0
-                                row.Beta = 0
-                                row.Turn = 0
-                                protLength = row.Unknown
-                            
                             if row.Type == 'SWI':
                                 protLength = row.Alpha + row.Beta + row.Turn + row.Unknown
                                 simData = simProtein(accession = currentAccession, alpha = row.Alpha, beta = row.Beta,
