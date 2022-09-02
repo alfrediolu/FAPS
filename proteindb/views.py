@@ -287,6 +287,7 @@ def upload(request):
                                 print("Master has no sim with matching dataType, adding...")
                                 protLength = row.Alpha + row.Beta + row.Turn + row.Unknown
                                 if protLength == 0:
+                                    failedUploads.append(currentAccession)
                                     continue
                                 if row.Type == 'SWI':
                                     simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength*100, beta = row.Beta/protLength*100,
@@ -303,6 +304,7 @@ def upload(request):
                             masterProt.save()
                             protLength = row.Alpha + row.Beta + row.Turn + row.Unknown
                             if protLength == 0:
+                                failedUploads.append(currentAccession)
                                 continue
                             if row.Type == 'SWI':
                                 simData = simProtein(accession = currentAccession, alpha = row.Alpha/protLength*100, beta = row.Beta/protLength*100,
