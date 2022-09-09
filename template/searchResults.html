@@ -56,11 +56,11 @@
         </table>
         </div>
         
-        <div class="d-inline-flex p-2 justify-content-center" style="text-align: center">
-          <a class="btn export_btn m-2" id="csvTableDownload" href=""
-               title="Export to CSV" onclick="tableToCSV('proteinTable')" style="text-align: center">
+        <div class="d-inline-flex p-2 justify-content-center">
+          <button type="button" class="btn btn-primary" id="csvTableDownload" href=""
+               title="Export to CSV" onclick="tableToCSV('proteinTable')">
               <i class="fa-solid fa-file-image"></i>Export
-          </a>
+          </button>
       </div>
 
     </div>
@@ -148,8 +148,6 @@
             var csv = [];
             for (var i = 0; i < rows.length; i++) {
                 var row = [], cols = rows[i].querySelectorAll('td, th');
-                cols.pop()
-                cols.pop()
                 for (var j = 0; j < cols.length; j++) {
                     var data = cols[j].innerText.replace(/(\r\n|\n|\r)/gm, '').replace(/(\s\s)/gm, ' ')
                     data = data.replace(/"/g, '""');
