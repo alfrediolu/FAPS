@@ -74,14 +74,20 @@ def fetchProteinName(accession):
     Returns:
         String represents the protein name otherwise, empty.
     """
-    name=""
-    response = requests.get(f"https://rest.uniprot.org/uniprotkb/{accession}")
-    if(response):
-        accession_data = json.loads(response.text)
-        try:
-            name = accession_data["proteinDescription"]["recommendedName"]["fullName"]["value"]
-        except:
-            name=accession
+    master = masterProtein.masterManage.search(accession).order_by('accession').first()
+    if master.name != '':
+        return master.name
+    else:
+        name=""
+        response = requests.get(f"https://rest.uniprot.org/uniprotkb/{accession}")
+        if(response):
+            accession_data = json.loads(response.text)
+            try:
+                name = accession_data["proteinDescription"]["recommendedName"]["fullName"]["value"]
+                master.name = name
+                master.save()
+            except:
+                name=accession
     return name
 
 class chartResults(ListView):
