@@ -68,7 +68,7 @@ class searchResults(ListView):
         return finalResults
 
 def fetchProteinName(accession):
-    """ Retreive the protein name based on the accession code of the protein.
+    """ Retreive the protein name based on the accession code of the protein. If not already in database, execute external search and save results.
     Arguments:
         accession: accession code of protein
     Returns:
