@@ -56,7 +56,7 @@
         </table>
         </div>
         
-        <div class="d-flex flex-row-reverse p-2 align-items-center">
+        <div class="d-inline-flex p-2 align-items-center">
           <a class="btn export_btn m-2" id="csvTableDownload" href=""
                title="Export to CSV" onclick="tableToCSV('proteinTable')">
               <i class="fa-solid fa-file-image"></i>Export
@@ -157,7 +157,7 @@
             }
             var csv_string = csv.join('\n');
 
-            var filename = 'export_' + table_id + '_' + new Date().toLocaleDateString() + '.csv';
+            var filename = table_id + '.csv';
             var link = document.createElement('a');
             link.style.display = 'none';
             link.setAttribute('target', '_blank');
