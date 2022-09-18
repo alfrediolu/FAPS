@@ -57,11 +57,18 @@
         </div>
         <div class="text-center">
           <a class="btn export_btn m-2" id="csvTableDownload" href="" style="text-align: center"
-               title="Export to CSV" onclick="tableToCSV('proteinTable')">
+               title="Export to CSV" onclick="tableToCSV('hidTable')">
               <i class="fa-solid fa-file-image"></i>Export
           </a>
         </div>
     </div>
+    <table hidden="hidden" id="hidTable">
+      <thead>
+        <tr>
+          <th>Test</th>
+        </tr>
+      </thead>
+    </table>
 
     <script>
 
