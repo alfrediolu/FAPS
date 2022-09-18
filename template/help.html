@@ -20,28 +20,27 @@
       class="text-left"
       style="font-family: Arial; color: black; font-size: 14px"
     >
-      The help section provides information of how to use FAPS website and API.
-      There are two options for input.
+      The help section provides information on how to use the FAPS website and API.
+      There are two options for input:
     </p>
     <ul
       class="text-left"
       style="font-family: Arial; color: black; font-size: 13px"
     >
       <li>Single-Protein Lookup</li>
-      <li>CSV-Based Search</li>
+      <li>CSV List-Based Search</li>
     </ul>
     <p
       class="text-left"
       style="font-family: Arial; color: black; font-size: 14px"
     >
-      In the Single-Protein Lookup, you can search with your protein of interest
+      With the Single-Protein Lookup, you can search for your protein of interest
       with an accession ID (e.g. "P08670", "Q9Y490"). You can also upload a .csv
-      file with a column name 'Accession' in the CSV-Based Search option. The
-      output will demonstrate the simulated 3-D structure of proteins and some
-      experimentally determined secondary structure information, which includes
-      helix percentage, known partial helix percentage, beta strand percentage,
-      known partial beta strand percentage, turn/random coil percentage, and
-      known partial turn percentage for each protein.
+      file with a column named 'Accession' in the CSV List-Based Search option to filter by. The
+      output will return the simulated 3-D structure of proteins and some
+      experimentally determined secondary structure information. This includes
+      the overall alpha, beta, random coil, and unknown constitute calcuated with both simulated
+      and experimental data for each protein.
     </p>
     <br />
     <img src="{% static "help_up.png" %}" alt="help1" class="img-center">
@@ -62,31 +61,24 @@
       class="text-left"
       style="font-family: Arial; color: black; font-size: 14px"
     >
-      The result summarizes a set of secondary structure information of the
-      protein of interest in a table. First column of the table indicates the
-      accession ID/ protein ID that was searched for and the second column
-      provides information about the simulation type. Next three columns (Sim
-      Alpha, Sim Beta, Sim Turn) give information about the 3-D structure
-      information that was experimentally determined from SWISS-PROT database.
-      The next nine columns (Uniprot Alpha, Uniprot Beta, Uniprot Turn, Known
-      Proportion, Unknown Proportion, Sequence Length, Overall Alpha, Overall
-      Beta, Overall Turn) represent secondary structure information that was
-      computed from UniProt database for a given accesion ID.
+      The result summarizes the set of secondary structure information from the
+      protein of interest in a table, and also in a pie chart. The first column of the table indicates the
+      accession ID/protein ID that was searched for; the second column
+      provides information about the simulation type the data was generated from; the third column
+      is the overall amino acid sequence length of the protein; the fourth column presents a bar chart
+      summary of the protein's overall secondary structure, calculated from the simulation and known UniprotKB data.
+      The final column allows you to view a more detailed summary of the results, along with the aforementioned pie chart.
     </p>
     <p
       class="text-left"
       style="font-family: Arial; color: black; font-size: 14px"
     >
-      Each of the structure’s proportion (alpha, beta and turn) was calculated
-      by dividing their total length by the sum of all parameter’s length. For
-      instance, the total length of alpha helix structure of P08670 was 194 and
-      the sum of all structures’ (alpha helix, beta strand and turn) length was
-      203. Therefore, the alpha percentage of the accession code P08670 was
-      calculated (194/203)*100 or 95.5665% (Uniprot Alpha). The known proportion
-      and unknown proportion are the total percentages of known structure vs
-      total protein sequence length. So the known proportion is the sum of the 3
-      secondary structures and the unknown is just the known proportion
-      subtracted from 1.
+      For each protein, the proportion of simulated secondary structure present was calculated
+      by dividing the length of each structure type found in the protein by the overall
+      amino acid sequence length. The experimentally determined data was scraped from UniprotKB and
+      converted to a proportional format to match the simulated data. The overall constitute for each
+      was then calculated as the sum total of the product of the simulated proportion and known proportion with
+      the product of the UniprotKB proportion with the unknown.
       <br />
     </p>
   </div>
