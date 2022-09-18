@@ -57,17 +57,37 @@
         </div>
         <div class="text-center">
           <a class="btn export_btn m-2" id="csvTableDownload" href="" style="text-align: center"
-               title="Export to CSV" onclick="tableToCSV('hidTable')">
+               title="Export to CSV" onclick="tableToCSV('Protein Data Summary')">
               <i class="fa-solid fa-file-image"></i>Export
           </a>
         </div>
     </div>
-    <table hidden="hidden" id="hidTable">
+    <table hidden="hidden" id="Protein Data Summary">
       <thead>
         <tr>
-          <th>Test</th>
+          <th>Accession</th>
+          <th>Protein Name</th>
+          <th>Simulation Type</th>
+          <th>Sequence Length</th>
+          <th>Overall Alpha</th>
+          <th>Overall Beta</th>
+          <th>Overall Turn</th>
+          <th>Overall Other</th>
         </tr>
       </thead>
+      <tbody>
+        {% for Protein in prot_list %}
+        <tr>
+          <td>{{ Protein.0 }}</td>
+          <td>{{ Protein.16 }}</td>
+          <td>{{ Protein.1 }}</td>
+          <td>{{ Protein.5 }}</td>
+          <td>{{ Protein.12 }}</td>
+          <td>{{ Protein.13 }}</td>
+          <td>{{ Protein.14 }}</td>
+          <td>{{ Protein.15 }}</td>
+        </tr>
+      </tbody>
     </table>
 
     <script>
