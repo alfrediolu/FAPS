@@ -1,4 +1,4 @@
-<!--Controls the HTML for the index, and the associated buttons and forms.-->
+<!--Controls the HTML for when the uploaded .csv file is invalid. -->
 {% extends "_base.html" %}
 {% block content %}
     {% include "partials/_invalid-card.html" with msg="Something went wrong with the file upload - check that the file type is a .csv and it contains a column with the name 'Accession'." %}
